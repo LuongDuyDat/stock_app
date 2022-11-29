@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:stock_app/component/button.dart';
 import 'package:stock_app/component/login_animated_picture.dart';
 import 'package:stock_app/component/text_field.dart';
+import 'package:stock_app/screen/register.dart';
+import 'package:stock_app/util/navigate.dart';
 import 'package:stock_app/util/string.dart';
 
 class LoginPage extends StatefulWidget {
@@ -88,7 +90,8 @@ class _LoginPageState extends State<LoginPage> {
                 height: 45,
                 color: Colors.black,
                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-                text: Text(loginString, style: const TextStyle(color: Colors.white, fontSize: 16.0),),
+                child: Text(loginString, style: const TextStyle(color: Colors.white, fontSize: 16.0),),
+                onPressed: () {},
               ),
               const SizedBox(height: 30,),
               Row(
@@ -99,7 +102,9 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(color: Colors.grey.shade600, fontSize: 14.0, fontWeight: FontWeight.w400,),
                   ),
                   TextButton(
-                    onPressed: () {}, 
+                    onPressed: () {
+                      Navigate.pushPage(context, const RegisterPage());
+                    },
                     child: Text(
                       registerString,
                       style: const TextStyle(color: Colors.blue, fontSize: 14.0, fontWeight: FontWeight.w400,),
