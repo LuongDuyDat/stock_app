@@ -37,6 +37,12 @@ dependencies:
   animate_do: ^3.0.2
   flutter_verification_code: ^1.1.6
 
+
+  # blog app
+  salomon_bottom_bar: ^3.3.1
+  font_awesome_flutter: ^10.2.1
+  flutter_profile_picture: ^2.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

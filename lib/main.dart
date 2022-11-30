@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:stock_app/screen/register.dart';
 import 'package:stock_app/screen/login.dart';
+import 'package:stock_app/screen/social/blog.dart';
+
+import './screen/social/home/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,8 +29,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const LoginPage(),
+      // home: const LoginPage(),
+      home: const BlogPage(),
     );
   }
 }
-
