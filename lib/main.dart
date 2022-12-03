@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:stock_app/screen/stocks.dart';
+import 'package:stock_app/pages/tea_page.dart';
+import 'package:stock_app/pages/vartical_card_pager.dart';
 import 'package:stock_app/screen/register.dart';
 import 'package:stock_app/screen/login.dart';
 
@@ -26,7 +29,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const LoginPage(),
+      home: const StocksPage(),
     );
   }
 }
