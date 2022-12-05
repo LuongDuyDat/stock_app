@@ -8,9 +8,8 @@ class SymbolSearch {
   final List<SymbolComponent> symbolList;
 
   factory SymbolSearch.fromJson(Map<String, dynamic> json) {
-    //final jsonDecode = jsonDecode(json['quotes']).c
     return SymbolSearch(
-      symbolList: json["quotes"].map((json) => SymbolComponent.fromJson(json)),
+      symbolList: json["quotes"].map<SymbolComponent>((json) => SymbolComponent.fromJson(json)).toList(),
     );
   }
 }

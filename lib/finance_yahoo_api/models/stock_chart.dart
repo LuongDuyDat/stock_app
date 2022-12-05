@@ -9,8 +9,8 @@ class StockChart {
 
   factory StockChart.fromJson(Map<String, dynamic> json) {
     return StockChart(
-      timeStamp: (json['timestamp'] as List<int>).map<DateTime>((e) => DateTime.fromMicrosecondsSinceEpoch(e)).toList(),
-      close: json['indicators']['quote'][0]['close'] as List<double>,
+      timeStamp: (List<int>.from(json['timestamp'])).map<DateTime>((e) => DateTime.fromMicrosecondsSinceEpoch(e * 1000)).toList(),
+      close: List<double>.from(json['indicators']['quote'][0]['close']),
     );
   }
 }

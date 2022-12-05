@@ -14,9 +14,9 @@ class SymbolNew {
   factory SymbolNew.fromJson(Map<String, dynamic> json) {
     return SymbolNew(
       title: json['title'] as String,
-      publishTime: DateTime.fromMillisecondsSinceEpoch(json['providerPublishTime'] as int),
+      publishTime: DateTime.fromMillisecondsSinceEpoch((json['providerPublishTime'] as int) * 1000),
       publisher: json['publisher'] as String,
-      relatedSymbol: json['relatedTickers'] as List<String>,
+      relatedSymbol: List<String>.from(json['relatedTickers']),
 
     );
   }
