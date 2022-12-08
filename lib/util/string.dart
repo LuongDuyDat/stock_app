@@ -18,3 +18,6 @@ String doNotReceiveString = lang == 'en' ? "Don't receive the OTP?" : "";
 String tryAgainString = lang == 'en' ? "Try again in " : "";
 String resendString = lang == 'en' ? "Resend" : "";
 String verifyString = lang == 'en' ? "Verify" : "";
+String stockString = lang == 'en' ? 'Stocks' : "";
+String editString = lang == 'en' ? 'Edit' : "";
+String searchString = lang == 'en' ? 'Search' : "";

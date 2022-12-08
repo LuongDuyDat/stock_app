@@ -4,14 +4,16 @@ import 'package:stock_app/finance_yahoo_api/models/stock_chart.dart';
 import 'package:stock_app/finance_yahoo_api/models/symbol_news.dart';
 import 'package:stock_app/finance_yahoo_api/models/symbol_search.dart';
 import 'package:stock_app/pages/bottom_navy_bar.dart';
+import 'package:stock_app/screen/home/view/home.dart';
+import 'package:stock_app/screen/login.dart';
 
 void main() async{
-  var client = FinanceYahooAPIClient();
-  StockChart result = await client.getStockChart("1d", "5m", "A");
-  for (int i = 0; i < result.close.length; i++) {
-    print(result.close.elementAt(i));
-  }
-  //runApp(const MyApp());
+  // var client = FinanceYahooAPIClient();
+  // StockChart result = await client.getStockChart("1d", "5m", "A");
+  // for (int i = 0; i < result.close.length; i++) {
+  //   print(result.close.elementAt(i));
+  // }
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home:  BottomNavyBarExample(),
+      home:  HomePage(),
     );
   }
 }

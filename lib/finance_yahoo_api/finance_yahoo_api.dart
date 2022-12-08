@@ -8,11 +8,15 @@ import 'models/symbol_news.dart';
 
 class SymbolSearchRequestFailure implements Exception {}
 
-class SymbolSearchNotFoundNotFound implements Exception {}
+class SymbolSearchNotFound implements Exception {}
 
 class SymbolNewRequestFailure implements Exception {}
 
-class SymbolNewNotFoundNotFound implements Exception {}
+class SymbolNewNotFound implements Exception {}
+
+class SymbolChartRequestFailure implements Exception {}
+
+class SymbolChartNotFound implements Exception {}
 
 
 class FinanceYahooAPIClient {
@@ -39,7 +43,7 @@ class FinanceYahooAPIClient {
     final searchResult = symbolSearchJson;
 
     if (searchResult["quotes"].isEmpty) {
-      throw SymbolSearchNotFoundNotFound();
+      throw SymbolSearchNotFound();
     }
 
     return SymbolSearch.fromJson(searchResult as Map<String, dynamic>);
@@ -60,7 +64,7 @@ class FinanceYahooAPIClient {
 
     final symbolNewJson = jsonDecode(symbolNewResponse.body);
     if (symbolNewJson["count"] == 0) {
-      throw SymbolSearchNotFoundNotFound();
+      throw SymbolNewNotFound();
     }
 
     final newResult = symbolNewJson['news'];
@@ -92,14 +96,14 @@ class FinanceYahooAPIClient {
     final symbolChartResponse = await _httpClient.get(symbolGetChart);
 
     if (symbolChartResponse.statusCode != 200) {
-      throw SymbolSearchRequestFailure();
+      throw SymbolChartRequestFailure();
     }
 
     final symbolNewJson = jsonDecode(symbolChartResponse.body);
     final chartResult = symbolNewJson['chart'];
 
     if (chartResult["result"] == null) {
-      throw SymbolSearchNotFoundNotFound();
+      throw SymbolChartNotFound();
     }
 
     return StockChart.fromJson(chartResult["result"].first as Map<String, dynamic>) ;
