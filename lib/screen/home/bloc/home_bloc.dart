@@ -33,6 +33,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             return state.copyWith(symbolTileList: () => temp);
           },
           onError: (_, __) {
+            print(__.toString());
             return state.copyWith(
               symbolTileListStatus: () => HomeStatus.failure,
             );
@@ -104,10 +105,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(state.copyWith(
       symbolTileListStatus: () => HomeStatus.loading,
     ));
-
+    int start = state.symbolTileList.length;
     try {
       await emit.forEach<SymbolTile>(
-          _symbolRepository.getFavoriteSymbolTiles(event.id, event.start, event.end),
+          _symbolRepository.getFavoriteSymbolTiles(event.id, start, start + 5),
           onData: (symbolTile) {
             List<SymbolTile> temp = List.from(state.symbolTileList);
             temp.add(symbolTile);
@@ -125,7 +126,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       ));
     }
 
-    if (state.symbolTileList.length < event.end) {
+    if (state.symbolTileList.length < start + 5) {
       emit(state.copyWith(
         hasMoreSymbolTile: () => false,
       ));

@@ -105,7 +105,6 @@ class FinanceYahooAPIClient {
     if (chartResult["result"] == null) {
       throw SymbolChartNotFound();
     }
-
     return StockChart.fromJson(chartResult["result"].first as Map<String, dynamic>) ;
   }
 }

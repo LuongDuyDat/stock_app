@@ -41,6 +41,13 @@ class SymbolRepository {
 
     for (int i = 0; i < symbols.length; i++) {
       StockChart temp = await getStockChart('1d', '1m', symbols.elementAt(i).symbol);
+      // List<double> t = [];
+      // for (int i = 0; i < temp.close.length; i++) {
+      //   if (temp.close.elementAt(i) != null) {
+      //     t.add(temp.close.elementAt(i)!);
+      //   }
+      // }
+      // temp.close.remove(null);
       yield SymbolTile(
         close: temp.close,
         regularMarketPrice: temp.regularMarketPrice,
@@ -57,8 +64,11 @@ class SymbolRepository {
 
     for (int i = 0; i < symbolSearch.symbolList.length; i++) {
       StockChart temp = await getStockChart('1d', '1m', symbolSearch.symbolList.elementAt(i).symbol);
+      List<double?> t = List.from(temp.close);
+      t.remove(null);
+      List<double> tt = t as List<double>;
       yield SymbolTile(
-        close: temp.close,
+        close: tt,
         regularMarketPrice: temp.regularMarketPrice,
         previousClose: temp.previousClose,
         symbol: symbolSearch.symbolList.elementAt(i).symbol,

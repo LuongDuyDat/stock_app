@@ -32,11 +32,10 @@ class HomeSearchSymbol extends HomeEvent {
 class HomeLoadMoreFavoriteSymbol extends HomeEvent {
   const HomeLoadMoreFavoriteSymbol({
     required this.id,
-    required this.start,
-    required this.end,
   });
 
   final String id;
-  final int start;
-  final int end;
+
+  @override
+  List<Object?> get props => [id];
 }

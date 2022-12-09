@@ -9,7 +9,7 @@ class SymbolTile extends Equatable {
     required this.shortName,
   });
 
-  final List<double> close;
+  final List<double?> close;
   final double regularMarketPrice;
   final double previousClose;
   final String symbol;
