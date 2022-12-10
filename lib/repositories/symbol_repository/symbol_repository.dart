@@ -1,11 +1,13 @@
 import 'package:stock_app/finance_yahoo_api/finance_yahoo_api.dart';
-import 'package:stock_app/finance_yahoo_api/models/symbol_search_component.dart';
+import 'package:stock_app/finance_yahoo_api/models/symbol_quotes.dart';
 import 'package:stock_app/repositories/symbol_repository/models/favortite_symbols.dart';
 import 'package:stock_app/repositories/symbol_repository/models/symbol_tile.dart';
 
 import '../../finance_yahoo_api/models/stock_chart.dart';
 import '../../finance_yahoo_api/models/symbol_news.dart';
 import '../../finance_yahoo_api/models/symbol_search.dart';
+import 'models/quote.dart';
+import 'models/stock.dart';
 
 class SymbolRepository {
   SymbolRepository({FinanceYahooAPIClient? financeYahooAPIClient})
@@ -23,6 +25,10 @@ class SymbolRepository {
 
   Future<StockChart> getStockChart(String range, String interval, String symbol) async{
     return await _financeYahooAPIClient.getStockChart(range, interval, symbol);
+  }
+
+  Future<SymbolQuotes> getStockQuotes(String symbol) async{
+    return await _financeYahooAPIClient.getStockQuotes(symbol);
   }
 
   Future<List<FavoriteSymbol>> getFavoriteSymbol(String id, int start, int end) async{
@@ -75,5 +81,39 @@ class SymbolRepository {
         shortName: symbolSearch.symbolList.elementAt(i).shortName,
       );
     }
+  }
+
+  Future<Quote> getQuote(String symbol) async{
+    SymbolQuotes quotes = await getStockQuotes(symbol);
+    return Quote(
+      open: quotes.open,
+      high: quotes.high,
+      low: quotes.low,
+    );
+  }
+
+  Future<Stock> getStock(int selectIndex, String symbol) async{
+    String time;
+    String interval;
+    switch (selectIndex) {
+      case 0:
+        time = '1d';
+        interval = '1m';
+        break;
+      case 1:
+        time = '1mo';
+        interval = '30m';
+        break;
+      default:
+        time = '1y';
+        interval = '1d';
+    }
+    StockChart temp = await getStockChart(time, interval, symbol);
+
+    return Stock(
+        close: temp.close,
+        regularMarketPrice: temp.regularMarketPrice,
+        previousClose: temp.previousClose,
+    );
   }
 }

@@ -5,6 +5,7 @@ import 'package:stock_app/finance_yahoo_api/models/stock_chart.dart';
 import 'package:stock_app/finance_yahoo_api/models/symbol_search.dart';
 
 import 'models/symbol_news.dart';
+import 'models/symbol_quotes.dart';
 
 class SymbolSearchRequestFailure implements Exception {}
 
@@ -79,6 +80,30 @@ class FinanceYahooAPIClient {
     }
 
     return result;
+  }
+
+  Future<SymbolQuotes> getStockQuotes(String symbol) async {
+    final symbolGetQuotes = Uri.https(
+      _baseUrl,
+      "/v8/finance/quote",
+      {
+        'symbol': symbol,
+      },
+    );
+
+    final symbolQuoteResponse = await _httpClient.get(symbolGetQuotes);
+
+    if (symbolQuoteResponse.statusCode != 200) {
+      throw SymbolChartRequestFailure();
+    }
+
+    final symbolNewJson = jsonDecode(symbolQuoteResponse.body);
+    final quoteResult = symbolNewJson['quoteResponse'];
+
+    if (quoteResult["result"] == null) {
+      throw SymbolChartNotFound();
+    }
+    return SymbolQuotes.fromJson(quoteResult["result"].first as Map<String, dynamic>) ;
   }
 
   Future<StockChart> getStockChart(String range, String interval, String symbol) async{
