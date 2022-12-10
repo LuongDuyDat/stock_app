@@ -57,8 +57,6 @@ class _HomePageViewState extends State<HomePageView> {
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
-    print(screenWidth);
-    print(screenHeight);
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: screenHeight * 0.08,
@@ -102,125 +100,150 @@ class _HomePageViewState extends State<HomePageView> {
         controller: _scrollController,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
-          child: BlocBuilder<HomeBloc, HomeState>(
-            builder: (context, state) {
-              switch (state.symbolTileListStatus) {
-                case HomeStatus.initial:
-                  context.read<HomeBloc>().add(const HomeSubscriptionRequest(id: ''));
-                  return const Center();
-                case HomeStatus.loading:
-                  return Column(
-                    children: [
-                      SizedBox(height: screenHeight * 0.03,),
-                      Container(
-                        width: double.infinity,
-                        height: screenHeight * 0.05,
-                        decoration: const BoxDecoration(
-                          color: Color.fromRGBO(201, 201, 201, 1),
-                          borderRadius: BorderRadius.all(Radius.circular(7)),
-                        ),
-                        child: TextField(
-                          style: const TextStyle(
-                            fontSize: 20,
-                            color: Colors.blue,
-                          ),
-                          decoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.search, color: Colors.black, size: 20,),
-                            hintText: searchString,
-                            focusedBorder: InputBorder.none,
-                            enabledBorder: InputBorder.none,
-                            errorBorder: InputBorder.none,
-                            disabledBorder: InputBorder.none,
-                            hintStyle: const TextStyle(
-                              fontSize: 20,
-                              color: Colors.black,
+          child: Column(
+            children: [
+              SizedBox(height: screenHeight * 0.03,),
+              Container(
+                width: double.infinity,
+                height: screenHeight * 0.05,
+                decoration: const BoxDecoration(
+                  color: Color.fromRGBO(201, 201, 201, 1),
+                  borderRadius: BorderRadius.all(Radius.circular(7)),
+                ),
+                child: TextField(
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: Colors.blue,
+                  ),
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.search, color: Colors.black, size: 20,),
+                    hintText: searchString,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    hintStyle: const TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                    ),
+                  ),
+                  autofocus: false,
+                  cursorColor: Colors.blue,
+                  onChanged: (text) {
+                    context.read<HomeBloc>().add(HomeSearchSymbol(searchContent: text));
+                  },
+                ),
+              ),
+              BlocBuilder<HomeBloc, HomeState>(
+                builder: (context, state) {
+                  if (state.searchContent == '') {
+                    switch (state.symbolTileListStatus) {
+                      case HomeStatus.initial:
+                        context.read<HomeBloc>().add(const HomeSubscriptionRequest(id: ''));
+                        return const Center();
+                      case HomeStatus.loading:
+                        return Column(
+                          children: [
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return SymbolRow(
+                                  close: state.symbolTileList.elementAt(index).close,
+                                  regularMarketPrice: state.symbolTileList.elementAt(index).regularMarketPrice,
+                                  previousClose: state.symbolTileList.elementAt(index).previousClose,
+                                  symbol: state.symbolTileList.elementAt(index).symbol,
+                                  shortName: state.symbolTileList.elementAt(index).shortName,
+                                );
+                              },
+                              itemCount: state.symbolTileList.length,
                             ),
-                          ),
-                          autofocus: false,
-                          cursorColor: Colors.blue,
-                          onChanged: (text) {
-                            //context.read<HomeBloc>().add(HomeSea(keyWord: text));
-                          },
-                        ),
-                      ),
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return SymbolRow(
-                            close: state.symbolTileList.elementAt(index).close,
-                            regularMarketPrice: state.symbolTileList.elementAt(index).regularMarketPrice,
-                            previousClose: state.symbolTileList.elementAt(index).previousClose,
-                            symbol: state.symbolTileList.elementAt(index).symbol,
-                            shortName: state.symbolTileList.elementAt(index).shortName,
-                          );
-                        },
-                        itemCount: state.symbolTileList.length,
-                      ),
-                      const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    ],
-                  );
-                case HomeStatus.success:
-                  return Column(
-                    children: [
-                      SizedBox(height: screenHeight * 0.03,),
-                      Container(
-                        width: double.infinity,
-                        height: screenHeight * 0.05,
-                        decoration: const BoxDecoration(
-                          color: Color.fromRGBO(201, 201, 201, 1),
-                          borderRadius: BorderRadius.all(Radius.circular(7)),
-                        ),
-                        child: TextField(
-                          style: const TextStyle(
-                            fontSize: 20,
-                            color: Colors.blue,
-                          ),
-                          decoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.search, color: Colors.black, size: 20,),
-                            hintText: searchString,
-                            focusedBorder: InputBorder.none,
-                            enabledBorder: InputBorder.none,
-                            errorBorder: InputBorder.none,
-                            disabledBorder: InputBorder.none,
-                            hintStyle: const TextStyle(
-                              fontSize: 20,
-                              color: Colors.black,
+                            const Center(
+                              child: CircularProgressIndicator(),
                             ),
-                          ),
-                          autofocus: false,
-                          cursorColor: Colors.blue,
-                          onChanged: (text) {
-                            //context.read<HomeBloc>().add(HomeSea(keyWord: text));
-                          },
-                        ),
-                      ),
-                      SizedBox(height: screenHeight * 0.03,),
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return SymbolRow(
-                            close: state.symbolTileList.elementAt(index).close,
-                            regularMarketPrice: state.symbolTileList.elementAt(index).regularMarketPrice,
-                            previousClose: state.symbolTileList.elementAt(index).previousClose,
-                            symbol: state.symbolTileList.elementAt(index).symbol,
-                            shortName: state.symbolTileList.elementAt(index).shortName,
-                          );
-                        },
-                        itemCount: state.symbolTileList.length,
-                      ),
-                    ],
-                  );
-                case HomeStatus.failure:
-                  return const Center(
-                    child: Text("Something went wrong", style: TextStyle(color: Colors.black, fontSize: 30),),
-                  );
-              }
-            },
-          ),
+                          ],
+                        );
+                      case HomeStatus.success:
+                        return Column(
+                          children: [
+                            SizedBox(height: screenHeight * 0.03,),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return SymbolRow(
+                                  close: state.symbolTileList.elementAt(index).close,
+                                  regularMarketPrice: state.symbolTileList.elementAt(index).regularMarketPrice,
+                                  previousClose: state.symbolTileList.elementAt(index).previousClose,
+                                  symbol: state.symbolTileList.elementAt(index).symbol,
+                                  shortName: state.symbolTileList.elementAt(index).shortName,
+                                );
+                              },
+                              itemCount: state.symbolTileList.length,
+                            ),
+                          ],
+                        );
+                      case HomeStatus.failure:
+                        return const Center(
+                          child: Text("Something went wrong", style: TextStyle(color: Colors.black, fontSize: 30),),
+                        );
+                    }
+                  } else {
+                    switch (state.symbolTileSearchListStatus) {
+                      case HomeStatus.initial:
+                        return const Center();
+                      case HomeStatus.loading:
+                        return Column(
+                          children: [
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return SymbolRow(
+                                  close: state.symbolTileSearchList.elementAt(index).close,
+                                  regularMarketPrice: state.symbolTileSearchList.elementAt(index).regularMarketPrice,
+                                  previousClose: state.symbolTileSearchList.elementAt(index).previousClose,
+                                  symbol: state.symbolTileSearchList.elementAt(index).symbol,
+                                  shortName: state.symbolTileSearchList.elementAt(index).shortName,
+                                );
+                              },
+                              itemCount: state.symbolTileSearchList.length,
+                            ),
+                            const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          ],
+                        );
+                      case HomeStatus.success:
+                        return Column(
+                          children: [
+                            SizedBox(height: screenHeight * 0.03,),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return SymbolRow(
+                                  close: state.symbolTileSearchList.elementAt(index).close,
+                                  regularMarketPrice: state.symbolTileSearchList.elementAt(index).regularMarketPrice,
+                                  previousClose: state.symbolTileSearchList.elementAt(index).previousClose,
+                                  symbol: state.symbolTileSearchList.elementAt(index).symbol,
+                                  shortName: state.symbolTileSearchList.elementAt(index).shortName,
+                                );
+                              },
+                              itemCount: state.symbolTileSearchList.length,
+                            ),
+                          ],
+                        );
+                      case HomeStatus.failure:
+                        return const Center(
+                          child: Text("Something went wrong", style: TextStyle(color: Colors.black, fontSize: 30),),
+                        );
+                    }
+                  }
+                },
+              ),
+            ],
+          )
         ),
       ),
     );

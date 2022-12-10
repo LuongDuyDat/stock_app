@@ -64,11 +64,11 @@ class SymbolRepository {
 
     for (int i = 0; i < symbolSearch.symbolList.length; i++) {
       StockChart temp = await getStockChart('1d', '1m', symbolSearch.symbolList.elementAt(i).symbol);
-      List<double?> t = List.from(temp.close);
-      t.remove(null);
-      List<double> tt = t as List<double>;
+      // List<double?> t = List.from(temp.close);
+      // t.remove(null);
+      // List<double> tt = t as List<double>;
       yield SymbolTile(
-        close: tt,
+        close: temp.close,
         regularMarketPrice: temp.regularMarketPrice,
         previousClose: temp.previousClose,
         symbol: symbolSearch.symbolList.elementAt(i).symbol,

@@ -42,10 +42,9 @@ class SymbolRow extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
+              SizedBox(
                 width: screenWidth * 0.3,
                 height: screenHeight * 0.07,
-                color: Colors.black,
                 child: StockChartComponent(close: close, type: "home", difference: difference),
               ),
               SizedBox(width: screenWidth * 0.03,),
@@ -53,14 +52,17 @@ class SymbolRow extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(regularMarketPrice.toStringAsFixed(2), style: const TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold,),),
+                  SizedBox(
+                    width: screenWidth * 0.15,
+                    child: Text(regularMarketPrice.toStringAsFixed(2), style: const TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold,overflow: TextOverflow.clip,), maxLines: 1,),
+                  ),
                   SizedBox(height: screenHeight * 0.004,),
                   Container(
                     width: screenWidth * 0.15,
                     color: difference > 0 ? const Color.fromRGBO(122, 232, 96, 1.0) : Colors.red,
                     child: Align(
                       alignment: Alignment.centerRight,
-                      child: Text(difference.toStringAsFixed(2), style: const TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold,),),
+                      child: Text(difference.toStringAsFixed(2), style: const TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold,overflow: TextOverflow.clip,),maxLines: 1,),
                     ),
                   ),
                 ],

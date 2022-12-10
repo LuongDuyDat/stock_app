@@ -1,7 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:stock_app/finance_yahoo_api/models/stock_chart.dart';
-import 'package:stock_app/finance_yahoo_api/models/symbol_search.dart';
-import 'package:stock_app/repositories/symbol_repository/models/favortite_symbols.dart';
 import 'package:stock_app/repositories/symbol_repository/models/symbol_tile.dart';
 
 enum HomeStatus {initial, loading, success, failure}

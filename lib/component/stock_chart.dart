@@ -21,15 +21,23 @@ class StockChartComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<FlSpot> spots = [];
-    double minn = 201;
+    double minn = double.maxFinite;
     double maxy = -1;
     double maxX = close.length.toDouble();
     for (int i = 0; i < close.length; i++) {
       if (close.elementAt(i) != null) {
         spots.add(FlSpot(i.toDouble(), close.elementAt(i)!));
+        if (close.elementAt(i) == 201.0 && difference < -100) {
+          print(i);
+        }
         minn = min(minn, close.elementAt(i)!);
         maxy = max(maxy, close.elementAt(i)!);
       }
+    }
+    if (difference < -100) {
+      print("hello");
+      print(minn);
+      print(maxy);
     }
     print(spots.length);
     if (maxy == -1) {
