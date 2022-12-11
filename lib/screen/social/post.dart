@@ -37,7 +37,7 @@ class _PostPageState extends State<PostPage> {
 
     setState(() {
       print("tới hàm set state\n");
-      print(_image.toString());
+      print(_image);
       this._image = imageTemporary;
     });
   }
@@ -50,8 +50,6 @@ class _PostPageState extends State<PostPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      //backgroundColor: Colors.blue.withOpacity(0.1),
-      // app bar
       
       appBar: AppBar(
         title: Text(
@@ -166,7 +164,7 @@ class _PostPageState extends State<PostPage> {
             SizedBox(height: 15,),
 
 
-            _image != null ? Image.file(_image!) :Image.network(
+            _image != null ? Image.file(_image!, height: MediaQuery.of(context).size.height*0.25, fit: BoxFit.cover,) :Image.network(
               "https://i.pinimg.com/236x/a5/a6/2f/a5a62f9e42e6ec8fb6727811151d2b71.jpg",
               width: MediaQuery.of(context).size.width*0.6,  
             )

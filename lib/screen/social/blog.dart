@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:stock_app/screen/social/home.dart';
 import 'package:stock_app/screen/social/post.dart';
+import 'package:stock_app/screen/social/profile.dart';
 import 'package:stock_app/screen/social/search.dart';
 import 'package:stock_app/util/constants/color_constants.dart';
 import 'package:stock_app/util/constants/dismension_constant.dart';
@@ -27,9 +28,7 @@ class _BlogPageState extends State<BlogPage> {
         children: [
           HomePage(),
           SearchPage(),
-          //Container(color: Colors.blue,),
-          Container(color: Colors.pink,),
-          Container(color: Colors.purple,),
+          ProfilePage(),
         ],
       ),
       bottomNavigationBar: SalomonBottomBar(
@@ -49,15 +48,10 @@ class _BlogPageState extends State<BlogPage> {
             icon: Icon(FontAwesomeIcons.house, size: kDefaultIconSize,), 
             title: Text("Home"),
           ),
-          // post
+          // search
           SalomonBottomBarItem(
-            icon: Icon(FontAwesomeIcons.locationArrow, size: kDefaultIconSize,), 
-            title: Text("Post"),
-          ),
-          // likes
-          SalomonBottomBarItem(
-            icon: Icon(FontAwesomeIcons.solidHeart, size: kDefaultIconSize,), 
-            title: Text("Likes"),
+            icon: Icon(FontAwesomeIcons.magnifyingGlass, size: kDefaultIconSize,), 
+            title: Text("Search"),
           ),
           // profile
           SalomonBottomBarItem(

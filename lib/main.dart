@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:stock_app/screen/furnitures.dart';
+import 'package:stock_app/screen/learn_flutter.dart';
 import 'package:stock_app/screen/register.dart';
 import 'package:stock_app/screen/login.dart';
 import 'package:stock_app/screen/social/blog.dart';
+import 'package:stock_app/screen/stocks.dart';
 
 import 'screen/social/home.dart';
+//import 'package:stock_app/pages/bottom_navy_bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,6 +35,10 @@ class MyApp extends StatelessWidget {
       ),
       // home: const LoginPage(),
       home: const BlogPage(),
+      //home:  BottomNavyBarExample(),
+      //home: StocksPage(),
+      //home: Furnitures(),
+      //home: LearnFlutter(),
     );
   }
 }
