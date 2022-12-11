@@ -41,12 +41,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home:  const StocksPage(
-        shortName: 'Agilient Technologies',
-        symbol: 'A',
-        different: -3.33455,
-        regularMarket: 152.952323,
-      ),
+      home: const HomePage(),
     );
   }
 }

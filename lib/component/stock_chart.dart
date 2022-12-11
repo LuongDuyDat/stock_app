@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:stock_app/util/globals.dart';
 
 class StockChartComponent extends StatelessWidget {
   const StockChartComponent({
@@ -29,19 +28,10 @@ class StockChartComponent extends StatelessWidget {
     for (int i = 0; i < close.length; i++) {
       if (close.elementAt(i) != null) {
         spots.add(FlSpot(i.toDouble(), close.elementAt(i)!));
-        if (close.elementAt(i) == 201.0 && difference < -100) {
-          print(i);
-        }
         minn = min(minn, close.elementAt(i)!);
         maxy = max(maxy, close.elementAt(i)!);
       }
     }
-    if (difference < -100) {
-      print("hello");
-      print(minn);
-      print(maxy);
-    }
-    print(spots.length);
     if (maxy == -1) {
       minn = 0;
       maxy = 200;
@@ -248,11 +238,7 @@ class StockChartComponent extends StatelessWidget {
       }
     }
     temp.sort();
-    print("LEFT");
-    print(temp.elementAt(0));
     int interval = temp.length ~/ 4;
-    //print(temp.elementAt(interval));
-    print(value);
     for (int i = 0; i <= 3; i++) {
       if (value == temp.elementAt(i * interval).toInt().toDouble()) {
         text = Text(temp.elementAt(i * interval).toStringAsFixed(1), style: style,);
