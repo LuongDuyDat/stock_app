@@ -7,6 +7,7 @@ import 'package:stock_app/finance_yahoo_api/models/symbol_search.dart';
 import 'package:stock_app/pages/bottom_navy_bar.dart';
 import 'package:stock_app/screen/home/view/home.dart';
 import 'package:stock_app/screen/login.dart';
+import 'package:stock_app/screen/stock/view/stocks.dart';
 
 import 'bloc_observer.dart';
 
@@ -40,7 +41,12 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home:  HomePage(),
+      home:  const StocksPage(
+        shortName: 'Agilient Technologies',
+        symbol: 'A',
+        different: -3.33455,
+        regularMarket: 152.952323,
+      ),
     );
   }
 }

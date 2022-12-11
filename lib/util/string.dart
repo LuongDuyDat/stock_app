@@ -21,3 +21,6 @@ String verifyString = lang == 'en' ? "Verify" : "";
 String stockString = lang == 'en' ? 'Stocks' : "";
 String editString = lang == 'en' ? 'Edit' : "";
 String searchString = lang == 'en' ? 'Search' : "";
+String openString = lang == 'en' ? 'Open' : "";
+String highString = lang == 'en' ? 'High' : "";
+String lowString = lang == 'en' ? 'Low' : "";

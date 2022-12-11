@@ -185,7 +185,7 @@ class _HomePageViewState extends State<HomePageView> {
                         );
                       case HomeStatus.failure:
                         return const Center(
-                          child: Text("Something went wrong", style: TextStyle(color: Colors.black, fontSize: 30),),
+                          child: Text("Something went wrong", style: TextStyle(color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold,),),
                         );
                     }
                   } else {

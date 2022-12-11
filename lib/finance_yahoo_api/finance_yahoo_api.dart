@@ -85,9 +85,9 @@ class FinanceYahooAPIClient {
   Future<SymbolQuotes> getStockQuotes(String symbol) async {
     final symbolGetQuotes = Uri.https(
       _baseUrl,
-      "/v8/finance/quote",
+      "/v7/finance/quote",
       {
-        'symbol': symbol,
+        'symbols': symbol,
       },
     );
 
