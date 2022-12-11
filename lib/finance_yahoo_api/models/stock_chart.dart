@@ -13,10 +13,10 @@ class StockChart {
 
   factory StockChart.fromJson(Map<String, dynamic> json) {
     return StockChart(
-      timeStamp: (List<int>.from(json['timestamp'])).map<DateTime>((e) => DateTime.fromMicrosecondsSinceEpoch(e * 1000)).toList(),
+      timeStamp: (List<int>.from(json['timestamp'])).map<DateTime>((e) => DateTime.fromMillisecondsSinceEpoch(e * 1000)).toList(),
       close: (List<double?>.from(json['indicators']['quote'][0]['close'])),
       regularMarketPrice: json['meta']['regularMarketPrice'] as double,
-      previousClose: json['meta']['previousClose'] as double,
+      previousClose: json['meta']['previousClose'] != null ? json['meta']['previousClose'] as double : json['meta']['chartPreviousClose'] as double,
     );
   }
 }

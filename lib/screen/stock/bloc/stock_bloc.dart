@@ -13,10 +13,41 @@ class StockBloc extends Bloc<StockEvent, StockState> {
   }) : _symbolRepository = symbolRepository,
         super(const StockState()) {
     on<StockGetQuote>(_onGetQuote);
+    on<StockGetChart>(_onGetChart);
     on<StockChangeIndex>(_onChangeIndex);
   }
 
   final SymbolRepository _symbolRepository;
+
+  void _onChangeIndex(
+      StockChangeIndex event,
+      Emitter<StockState> emit,
+      ) {
+    emit(state.copyWith(
+      selectIndex: () => event.index,
+    ));
+    Stock s = const Stock(close: [], regularMarketPrice: 0, previousClose: 0, timeStamp: []);
+    switch(event.index) {
+      case 0:
+        emit(state.copyWith(
+          chartStatus: () => StockStatus.initial,
+        ));
+        break;
+      case 1:
+        if (state.monthStock == s) {
+          emit(state.copyWith(
+            chartStatus: () => StockStatus.initial,
+          ));
+        }
+        break;
+      default:
+        if (state.yearStock == s) {
+          emit(state.copyWith(
+            chartStatus: () => StockStatus.initial,
+          ));
+        }
+    }
+  }
 
   Future<void> _onGetQuote(
       StockGetQuote event,
@@ -46,8 +77,8 @@ class StockBloc extends Bloc<StockEvent, StockState> {
     }
   }
 
-  Future<void> _onChangeIndex(
-      StockChangeIndex event,
+  Future<void> _onGetChart(
+      StockGetChart event,
       Emitter<StockState> emit,
       ) async {
     emit(state.copyWith(
@@ -55,8 +86,8 @@ class StockBloc extends Bloc<StockEvent, StockState> {
     ));
 
     try {
-      Stock chart = await _symbolRepository.getStock(event.index, event.symbol);
-      switch (event.index) {
+      Stock chart = await _symbolRepository.getStock(state.selectIndex, event.symbol);
+      switch (state.selectIndex) {
         case 0:
           emit(state.copyWith(
              dayStock : () => chart,

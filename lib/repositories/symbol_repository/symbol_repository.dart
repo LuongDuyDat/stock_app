@@ -114,6 +114,7 @@ class SymbolRepository {
         close: temp.close,
         regularMarketPrice: temp.regularMarketPrice,
         previousClose: temp.previousClose,
+        timeStamp: temp.timeStamp,
     );
   }
 }

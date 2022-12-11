@@ -16,12 +16,20 @@ class StockGetQuote extends StockEvent {
   List<Object?> get props => [];
 }
 
-class StockChangeIndex extends StockEvent {
-  const StockChangeIndex({required this.symbol, required this.index,});
+class StockGetChart extends StockEvent {
+  const StockGetChart({required this.symbol,});
 
   final String symbol;
+
+  @override
+  List<Object?> get props => [symbol,];
+}
+
+class StockChangeIndex extends StockEvent {
+  const StockChangeIndex({required this.index,});
+
   final int index;
 
   @override
-  List<Object?> get props => [symbol, index,];
+  List<Object?> get props => [index,];
 }

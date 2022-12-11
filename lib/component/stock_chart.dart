@@ -11,12 +11,14 @@ class StockChartComponent extends StatelessWidget {
     required this.type,
     required this.difference,
     this.timeStamp,
+    this.index,
   }) : super(key: key);
 
   final List<double?> close;
   final String type;
   final double difference;
   final List<DateTime>? timeStamp;
+  final int? index;
 
   @override
   Widget build(BuildContext context) {
@@ -48,14 +50,10 @@ class StockChartComponent extends StatelessWidget {
       minn = minn - d/15;
       maxy = maxy + d/15;
     }
-    return SizedBox(
-      width: screenWidth * 0.3,
-      height: screenHeight * 0.02,
-      child: LineChart(
-        mainData(spots, minn, maxy, maxX),
-        swapAnimationCurve: Curves.easeInOutCubic,
-        swapAnimationDuration: const Duration(milliseconds: 1000),
-      ),
+    return LineChart(
+      mainData(spots, minn, maxy, maxX),
+      swapAnimationCurve: Curves.easeInOutCubic,
+      swapAnimationDuration: const Duration(milliseconds: 1000),
     );
   }
 
@@ -73,7 +71,12 @@ class StockChartComponent extends StatelessWidget {
         show: true,
         rightTitles: AxisTitles(
           sideTitles: type == 'stock'
-              ? SideTitles(showTitles: true, reservedSize: 10)
+              ? SideTitles(
+            showTitles: true,
+            interval: 1,
+            getTitlesWidget: leftTitleWidgets,
+            reservedSize: 38,
+          )
               : SideTitles(showTitles: false),
         ),
         topTitles: AxisTitles(
@@ -90,14 +93,7 @@ class StockChartComponent extends StatelessWidget {
               : SideTitles(showTitles: false),
         ),
         leftTitles: AxisTitles(
-          sideTitles: type == 'stock'
-              ? SideTitles(
-            showTitles: true,
-            interval: 1,
-            getTitlesWidget: leftTitleWidgets,
-            reservedSize: 35,
-          )
-              : SideTitles(showTitles: false),
+          sideTitles: SideTitles(showTitles: false),
         ),
       ),
       minX: 0,
@@ -186,58 +182,50 @@ class StockChartComponent extends StatelessWidget {
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
-        color: Color(0xff68737d),
-        fontWeight: FontWeight.bold,
-        fontSize: 8
+      color: Color(0xff67727d),
+      fontWeight: FontWeight.bold,
+      fontSize: 12,
     );
-    Widget text;
-    if (0 == 0) {
-      text = Text((value.toInt() + 1).toString(), style: style,);
-    } else {
-      if (1 == 1) {
-        switch (value.toInt()) {
-          case 0:
-            text = const Text('JAN', style: style,);
-            break;
-          case 1:
-            text = const Text('FEB', style: style,);
-            break;
-          case 2:
-            text = const Text('MAR', style: style,);
-            break;
-          case 3:
-            text = const Text('APR', style: style,);
-            break;
-          case 4:
-            text = const Text('MAY', style: style,);
-            break;
-          case 5:
-            text = const Text('JUN', style: style,);
-            break;
-          case 6:
-            text = const Text('JUL', style: style,);
-            break;
-          case 7:
-            text = const Text('AUG', style: style,);
-            break;
-          case 8:
-            text = const Text('SEP', style: style,);
-            break;
-          case 9:
-            text = const Text('OCT', style: style,);
-            break;
-          case 10:
-            text = const Text('NOV', style: style,);
-            break;
-          case 11:
-            text = const Text('DEC', style: style,);
-            break;
-          default:
-            text = const Text('', style: style,);
-        }
-      } else {
-        text = Text((1990 + value.toInt()).toString(), style: style,);
+
+    Widget text = const Text('');
+    if (index != null) {
+      switch (index) {
+        case 0:
+          int interval = timeStamp!.length ~/ 6;
+          for (int i = 1; i <= 5; i++) {
+            if (value == meta.min + interval * i) {
+              text = Text((timeStamp!.elementAt(value.toInt()).hour).toString(), style: style,);
+              break;
+            } else {
+              text = const Text('');
+            }
+          }
+          break;
+        case 1:
+          int interval = timeStamp!.length ~/ 6;
+          for (int i = 1; i <= 5; i++) {
+            if (value == meta.min + interval * i) {
+              text = Text((timeStamp!.elementAt(value.toInt()).day).toString(), style: style,);
+              break;
+            } else {
+              text = const Text('');
+            }
+          }
+          break;
+        default:
+          List<String> month = ['','JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP', 'OCT', 'NOV', 'DEC',];
+          int interval = timeStamp!.length ~/ 6;
+          for (int i = 1; i <= 5; i++) {
+            if (value == meta.min + interval * i) {
+              text = Text(month[(timeStamp!.elementAt(value.toInt()).month)], style: style,);
+              break;
+            } else {
+              text = const Text('');
+            }
+          }
       }
+    } else {
+      text = const Text('');
     }
 
     return SideTitleWidget(
@@ -250,33 +238,28 @@ class StockChartComponent extends StatelessWidget {
     const style = TextStyle(
       color: Color(0xff67727d),
       fontWeight: FontWeight.bold,
-      fontSize: 12,
+      fontSize: 10,
     );
-    Widget text;
-    switch (value.toInt()) {
-      case 0:
-        text = Text(0.toString(), style: style,);
+    Widget text = const Text('');
+    List<double> temp = [];
+    for (int i = 0; i < close.length; i++) {
+      if (close.elementAt(i) != null) {
+        temp.add(close.elementAt(i)!);
+      }
+    }
+    temp.sort();
+    print("LEFT");
+    print(temp.elementAt(0));
+    int interval = temp.length ~/ 4;
+    //print(temp.elementAt(interval));
+    print(value);
+    for (int i = 0; i <= 3; i++) {
+      if (value == temp.elementAt(i * interval).toInt().toDouble()) {
+        text = Text(temp.elementAt(i * interval).toStringAsFixed(1), style: style,);
         break;
-      case 50:
-        text = Text(50.toString(), style: style,);
-        break;
-      case 100:
-        text = Text(100.toString(), style: style,);
-        break;
-      case 125:
-        text = Text(125.toString(), style: style,);
-        break;
-      case 150:
-        text = Text(150.toString(), style: style,);
-        break;
-      case 170:
-        text = Text(175.toString(), style: style,);
-        break;
-      case 200:
-        text = Text(200.toString(), style: style,);
-        break;
-      default:
-        text = const Text('', style: style, textAlign: TextAlign.left);
+      } else {
+        text = const Text('');
+      }
     }
 
     return SideTitleWidget(

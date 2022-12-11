@@ -7,9 +7,9 @@ enum StockStatus {initial, loading, success, failure}
 class StockState extends Equatable{
   const StockState({
     this.selectIndex = 0,
-    this.dayStock = const Stock(close: [], regularMarketPrice: 0, previousClose: 0,),
-    this.monthStock = const Stock(close: [], regularMarketPrice: 0, previousClose: 0,),
-    this.yearStock = const Stock(close: [], regularMarketPrice: 0, previousClose: 0,),
+    this.dayStock = const Stock(close: [], regularMarketPrice: 0, previousClose: 0, timeStamp: [],),
+    this.monthStock = const Stock(close: [], regularMarketPrice: 0, previousClose: 0, timeStamp: [],),
+    this.yearStock = const Stock(close: [], regularMarketPrice: 0, previousClose: 0, timeStamp: [],),
     this.quote = const Quote(open: 0, high: 0, low: 0,),
     this.chartStatus = StockStatus.initial,
     this.quoteStatus = StockStatus.initial,
