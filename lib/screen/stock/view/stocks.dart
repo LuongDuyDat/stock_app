@@ -100,93 +100,103 @@ class StockPageView extends StatelessWidget {
                   },
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 0.064 * screenWidth),
-                child: BlocBuilder<StockBloc, StockState>(
-                  builder: (context, state) {
-                    switch (state.chartStatus){
-                      case StockStatus.initial:
-                        context.read<StockBloc>().add(StockGetChart(symbol: symbol,));
-                        return const Center();
-                      case StockStatus.loading:
-                        return const Center(
-                          child: CircularProgressIndicator(),
+              SizedBox(height:  screenHeight * 0.05,),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 0.064 * screenWidth),
+                decoration: BoxDecoration(
+                  border: Border.all(color: const Color.fromRGBO(201, 201, 201, 1),),
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                ),
+                child: Column(
+                  children: [
+                    SizedBox(height:  screenHeight * 0.03,),
+                    BlocBuilder<StockBloc, StockState>(
+                      builder: (context, state) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                context.read<StockBloc>().add(const StockChangeIndex(index: 0,));
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: state.selectIndex == 0 ? const Color(0xff161b22) : const Color.fromRGBO(240, 240, 240, 1),
+                                ),
+                                child: Text("D", style: TextStyle(color: state.selectIndex == 0 ? Colors.blueGrey.shade200 : Colors.blueGrey, fontSize: 20),),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                context.read<StockBloc>().add(const StockChangeIndex(index: 1,));
+                              },
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 500),
+                                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: state.selectIndex == 1 ? const Color(0xff161b22) : const Color.fromRGBO(240, 240, 240, 1),
+                                ),
+                                child: Text("M", style: TextStyle(color: state.selectIndex == 1 ? Colors.blueGrey.shade200 : Colors.blueGrey, fontSize: 20),),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                context.read<StockBloc>().add(const StockChangeIndex(index: 2,));
+                              },
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 500),
+                                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: state.selectIndex == 2 ? const Color(0xff161b22) : const Color.fromRGBO(240, 240, 240, 1),
+                                ),
+                                child: Text("Y", style: TextStyle(color: state.selectIndex == 2 ? Colors.blueGrey.shade200 : Colors.blueGrey, fontSize: 20),),
+                              ),
+                            ),
+                          ],
                         );
-                      case StockStatus.success:
-                        return SizedBox(
-                          height: 0.3 * screenHeight,
-                          width: double.infinity,
-                          child: StockChartComponent(
-                            close: state.selectIndex == 0 ? state.dayStock.close : (state.selectIndex == 1 ? state.monthStock.close : state.yearStock.close),
-                            type: "stock",
-                            difference: different,
-                            timeStamp: state.selectIndex == 0 ? state.dayStock.timeStamp : (state.selectIndex == 1 ? state.monthStock.timeStamp : state.yearStock.timeStamp),
-                            index: state.selectIndex,
-                          ),
-                        );
-                      case StockStatus.failure:
-                        return const Center(
-                          child: Text("Something went wrong", style: TextStyle(color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold,),),
-                        );
-                    }
-                  },
+                      },
+                    ),
+                    SizedBox(height:  screenHeight * 0.04,),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 0.03 * screenWidth),
+                      child: BlocBuilder<StockBloc, StockState>(
+                        builder: (context, state) {
+                          switch (state.chartStatus){
+                            case StockStatus.initial:
+                              context.read<StockBloc>().add(StockGetChart(symbol: symbol,));
+                              return const Center();
+                            case StockStatus.loading:
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            case StockStatus.success:
+                              return SizedBox(
+                                height: 0.3 * screenHeight,
+                                width: double.infinity,
+                                child: StockChartComponent(
+                                  close: state.selectIndex == 0 ? state.dayStock.close : (state.selectIndex == 1 ? state.monthStock.close : state.yearStock.close),
+                                  type: "stock",
+                                  difference: different,
+                                  timeStamp: state.selectIndex == 0 ? state.dayStock.timeStamp : (state.selectIndex == 1 ? state.monthStock.timeStamp : state.yearStock.timeStamp),
+                                  index: state.selectIndex,
+                                ),
+                              );
+                            case StockStatus.failure:
+                              return const Center(
+                                child: Text("Something went wrong", style: TextStyle(color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold,),),
+                              );
+                          }
+                        },
+                      ),
+                    ),
+                    SizedBox(height:  screenHeight * 0.03,),
+                  ],
                 ),
               ),
-              BlocBuilder<StockBloc, StockState>(
-                builder: (context, state) {
-                  return AnimatedContainer(
-                      duration: const Duration(milliseconds: 500),
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      padding: const EdgeInsets.all(20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              context.read<StockBloc>().add(const StockChangeIndex(index: 0,));
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: state.selectIndex == 0 ? const Color(0xff161b22) : const Color(0xff161b22).withOpacity(0.0),
-                              ),
-                              child: Text("D", style: TextStyle(color: state.selectIndex == 0 ? Colors.blueGrey.shade200 : Colors.blueGrey, fontSize: 20),),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              context.read<StockBloc>().add(const StockChangeIndex(index: 1,));
-                            },
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 500),
-                              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: state.selectIndex == 1 ? const Color(0xff161b22) : const Color(0xff161b22).withOpacity(0.0),
-                              ),
-                              child: Text("M", style: TextStyle(color: state.selectIndex == 1 ? Colors.blueGrey.shade200 : Colors.blueGrey, fontSize: 20),),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              context.read<StockBloc>().add(const StockChangeIndex(index: 2,));
-                            },
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 500),
-                              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: state.selectIndex == 2 ? const Color(0xff161b22) : const Color(0xff161b22).withOpacity(0.0),
-                              ),
-                              child: Text("Y", style: TextStyle(color: state.selectIndex == 2 ? Colors.blueGrey.shade200 : Colors.blueGrey, fontSize: 20),),
-                            ),
-                          ),
-                        ],
-                      )
-                  );
-                },
-              )
               // FadeInUp(
               //   duration: const Duration(milliseconds: 1000),
               //   from: 30,
