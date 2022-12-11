@@ -70,16 +70,15 @@ class SymbolRepository {
 
     for (int i = 0; i < symbolSearch.symbolList.length; i++) {
       StockChart temp = await getStockChart('1d', '1m', symbolSearch.symbolList.elementAt(i).symbol);
-      // List<double?> t = List.from(temp.close);
-      // t.remove(null);
-      // List<double> tt = t as List<double>;
-      yield SymbolTile(
-        close: temp.close,
-        regularMarketPrice: temp.regularMarketPrice,
-        previousClose: temp.previousClose,
-        symbol: symbolSearch.symbolList.elementAt(i).symbol,
-        shortName: symbolSearch.symbolList.elementAt(i).shortName,
-      );
+      if (temp.previousClose != -1) {
+        yield SymbolTile(
+          close: temp.close,
+          regularMarketPrice: temp.regularMarketPrice,
+          previousClose: temp.previousClose,
+          symbol: symbolSearch.symbolList.elementAt(i).symbol,
+          shortName: symbolSearch.symbolList.elementAt(i).shortName,
+        );
+      }
     }
   }
 

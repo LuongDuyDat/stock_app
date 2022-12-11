@@ -144,9 +144,12 @@ class _HomePageViewState extends State<HomePageView> {
                       case HomeStatus.loading:
                         return Column(
                           children: [
-                            ListView.builder(
+                            ListView.separated(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
+                              separatorBuilder: (context, index) {
+                                return SizedBox(height: 0.02 * screenHeight,);
+                              },
                               itemBuilder: (context, index) {
                                 return SymbolRow(
                                   close: state.symbolTileList.elementAt(index).close,
@@ -166,10 +169,13 @@ class _HomePageViewState extends State<HomePageView> {
                       case HomeStatus.success:
                         return Column(
                           children: [
-                            SizedBox(height: screenHeight * 0.03,),
-                            ListView.builder(
+                            SizedBox(height: screenHeight * 0.02,),
+                            ListView.separated(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
+                              separatorBuilder: (context, index) {
+                                return SizedBox(height: 0.02 * screenHeight,);
+                              },
                               itemBuilder: (context, index) {
                                 return SymbolRow(
                                   close: state.symbolTileList.elementAt(index).close,
@@ -195,9 +201,12 @@ class _HomePageViewState extends State<HomePageView> {
                       case HomeStatus.loading:
                         return Column(
                           children: [
-                            ListView.builder(
+                            ListView.separated(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
+                              separatorBuilder: (context, index) {
+                                return SizedBox(height: 0.02 * screenHeight,);
+                              },
                               itemBuilder: (context, index) {
                                 return SymbolRow(
                                   close: state.symbolTileSearchList.elementAt(index).close,
@@ -217,10 +226,13 @@ class _HomePageViewState extends State<HomePageView> {
                       case HomeStatus.success:
                         return Column(
                           children: [
-                            SizedBox(height: screenHeight * 0.03,),
-                            ListView.builder(
+                            SizedBox(height: screenHeight * 0.02,),
+                            ListView.separated(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
+                              separatorBuilder: (context, index) {
+                                return SizedBox(height: 0.02 * screenHeight,);
+                              },
                               itemBuilder: (context, index) {
                                 return SymbolRow(
                                   close: state.symbolTileSearchList.elementAt(index).close,

@@ -33,7 +33,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             return state.copyWith(symbolTileList: () => temp);
           },
           onError: (_, __) {
-            print(__.toString());
             return state.copyWith(
               symbolTileListStatus: () => HomeStatus.failure,
             );
@@ -69,7 +68,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       symbolTileSearchList: () => [],
       searchContent: () => event.searchContent,
     ));
-
     try {
       await emit.forEach<SymbolTile>(
           _symbolRepository.getSearchSymbolTiles(event.searchContent),

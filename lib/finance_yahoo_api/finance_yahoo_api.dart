@@ -120,6 +120,7 @@ class FinanceYahooAPIClient {
 
     final symbolChartResponse = await _httpClient.get(symbolGetChart);
 
+
     if (symbolChartResponse.statusCode != 200) {
       throw SymbolChartRequestFailure();
     }
