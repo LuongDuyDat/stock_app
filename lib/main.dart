@@ -1,19 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stock_app/finance_yahoo_api/finance_yahoo_api.dart';
-import 'package:stock_app/finance_yahoo_api/models/stock_chart.dart';
-import 'package:stock_app/finance_yahoo_api/models/symbol_news.dart';
-import 'package:stock_app/finance_yahoo_api/models/symbol_search.dart';
-import 'package:stock_app/fl_chart-example-lib-line_chart/line_chart_page3.dart';
-import 'package:stock_app/fl_chart-example-lib-line_chart/line_chart_page4.dart';
-import 'package:stock_app/pages/bottom_navy_bar.dart';
-import 'package:stock_app/pages/line_chart/line_chart_page.dart';
 import 'package:stock_app/screen/home/view/home.dart';
-import 'package:stock_app/screen/login.dart';
-import 'package:stock_app/screen/stock/view/stocks.dart';
 
 import 'bloc_observer.dart';
-import 'fl_chart-example-lib-line_chart/line_chart_page2.dart';
 
 void main() async{
   // var client = FinanceYahooAPIClient();
@@ -49,4 +38,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

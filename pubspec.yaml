@@ -36,6 +36,14 @@ dependencies:
   cupertino_icons: ^1.0.2
   animate_do: ^3.0.2
   flutter_verification_code: ^1.1.6
+
+
+  # blog app
+  # salomon_bottom_bar: ^3.3.1
+  # font_awesome_flutter: ^10.2.1
+  # flutter_profile_picture: ^2.0.0
+  # image_picker: ^0.8.6
+
   fl_chart: ^0.55.2
   google_fonts: ^3.0.1
   http: ^0.13.5
@@ -55,6 +63,10 @@ dependencies:
   iconsax: ^0.0.8
   bouncing_widget: ^2.0.0
   bottom_navy_bar: ^6.0.0
+
+  font_awesome_flutter: ^10.2.1
+  flutter_profile_picture: ^2.0.0
+  image_picker: ^0.8.6
 dev_dependencies:
   flutter_test:
     sdk: flutter
