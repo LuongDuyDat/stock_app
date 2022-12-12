@@ -22,29 +22,21 @@ class _ProfilePageState extends State<ProfilePage> {
           "Profile",
         ),
       ),
-
       body: Column(
         children: [
           // space
           SizedBox(height: 30,),
-
           // Profile picture
           ProfilePicture(
-                            name: 'Fall Angel',
-                            radius: 16,
-                            fontsize: 18,
-                            //count: 3,
-                            //random: true,
-                            tooltip: true,
-                        ),
-
-          // space
-          
-          
-
+            name: 'Fall Angel',
+            radius: 16,
+            fontsize: 18,
+            //count: 3,
+            //random: true,
+            tooltip: true,
+          ),
           // space
           SizedBox(height: 20,),
-
           // Log out
           Button(color: buttonColor, child: Text("Log out"), onPressed: () {},),
         ],

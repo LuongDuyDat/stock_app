@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:stock_app/screen/social/home.dart';
-import 'package:stock_app/screen/social/post.dart';
+import 'package:stock_app/screen/social/upload_post.dart';
 import 'package:stock_app/screen/social/profile.dart';
 import 'package:stock_app/screen/social/search.dart';
 import 'package:stock_app/util/constants/color_constants.dart';
 import 'package:stock_app/util/constants/dismension_constant.dart';
+
+import '../../util/globals.dart';
 
 class BlogPage extends StatefulWidget {
   const BlogPage({super.key});
@@ -21,6 +23,8 @@ class _BlogPageState extends State<BlogPage> {
 
   @override
   Widget build(BuildContext context) {
+    screenWidth = MediaQuery.of(context).size.width;
+    screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
       body: IndexedStack(
