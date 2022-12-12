@@ -43,7 +43,9 @@ class _StockChartComponent extends State<StockChartComponent> {
         maxy = max(maxy, widget.close.elementAt(i)!);
       }
     }
-    difference = spots.elementAt(spots.length - 1).y - spots.elementAt(0).y;
+    if (spots.isNotEmpty) {
+      difference = spots.elementAt(spots.length - 1).y - spots.elementAt(0).y;
+    }
     if (maxy == -1) {
       minn = 0;
       maxy = 200;
@@ -264,11 +266,13 @@ class _StockChartComponent extends State<StockChartComponent> {
     temp.sort();
     int interval = temp.length ~/ 4;
     for (int i = 0; i <= 3; i++) {
-      if (value == temp.elementAt(i * interval).toInt().toDouble()) {
-        text = Text(temp.elementAt(i * interval).toStringAsFixed(1), style: style,);
-        break;
-      } else {
-        text = const Text('');
+      if (temp.isNotEmpty) {
+        if (value == temp.elementAt(i * interval).toInt().toDouble()) {
+          text = Text(temp.elementAt(i * interval).toStringAsFixed(1), style: style,);
+          break;
+        } else {
+          text = const Text('');
+        }
       }
     }
 
