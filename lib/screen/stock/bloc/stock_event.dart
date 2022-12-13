@@ -33,3 +33,23 @@ class StockChangeIndex extends StockEvent {
   @override
   List<Object?> get props => [index,];
 }
+
+class StockCheckFavorite extends StockEvent {
+  const StockCheckFavorite({required this.symbol});
+
+  final String symbol;
+
+  @override
+  List<Object?> get props => [symbol,];
+}
+
+class StockChangeFavorite extends StockEvent {
+  const StockChangeFavorite({required this.symbol, required this.shortName, required this.type,});
+
+  final String symbol;
+  final String shortName;
+  final int type;
+
+  @override
+  List<Object?> get props => [symbol, shortName, type,];
+}

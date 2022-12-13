@@ -43,10 +43,11 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   int activeIndex = 0;
+  late Timer timePeriodic;
 
   @override
   void initState() {
-    Timer.periodic(const Duration(seconds: 5), (timer) {
+    timePeriodic = Timer.periodic(const Duration(seconds: 5), (timer) {
       setState(() {
         activeIndex++;
 
@@ -57,6 +58,12 @@ class _LoginViewState extends State<LoginView> {
     });
     
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    timePeriodic.cancel();
   }
 
   @override

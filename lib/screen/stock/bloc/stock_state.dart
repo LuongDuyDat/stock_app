@@ -13,6 +13,8 @@ class StockState extends Equatable{
     this.quote = const Quote(open: 0, high: 0, low: 0,),
     this.chartStatus = StockStatus.initial,
     this.quoteStatus = StockStatus.initial,
+    this.dropDownItem = const [],
+    this.favoriteStatus = StockStatus.initial,
   });
 
   final int selectIndex;
@@ -22,6 +24,8 @@ class StockState extends Equatable{
   final Quote quote;
   final StockStatus chartStatus;
   final StockStatus quoteStatus;
+  final List<String> dropDownItem;
+  final StockStatus favoriteStatus;
 
   StockState copyWith({
     int Function()? selectIndex,
@@ -31,6 +35,8 @@ class StockState extends Equatable{
     StockStatus Function()? chartStatus,
     Quote Function()? quote,
     StockStatus Function()? quoteStatus,
+    List<String> Function()? dropDownItem,
+    StockStatus Function()? favoriteStatus,
   }) {
     return StockState(
       selectIndex: selectIndex != null ? selectIndex() : this.selectIndex,
@@ -40,6 +46,8 @@ class StockState extends Equatable{
       chartStatus: chartStatus != null ? chartStatus() : this.chartStatus,
       quote: quote != null ? quote() : this.quote,
       quoteStatus: quoteStatus != null ? quoteStatus() : this.quoteStatus,
+      dropDownItem: dropDownItem != null ? dropDownItem() : this.dropDownItem,
+      favoriteStatus: favoriteStatus != null ? favoriteStatus() : this.favoriteStatus,
     );
   }
 
@@ -52,5 +60,7 @@ class StockState extends Equatable{
     quote,
     chartStatus,
     quoteStatus,
+    dropDownItem,
+    favoriteStatus,
   ];
 }

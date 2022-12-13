@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:stock_app/component/stock_chart.dart';
 import 'package:stock_app/component/stock_info.dart';
+import 'package:stock_app/repositories/social_repository/models/user_hive.dart';
+import 'package:stock_app/repositories/social_repository/user_hive_repository.dart';
+import 'package:stock_app/screen/home/view/home.dart';
+import 'package:stock_app/screen/social/blog.dart';
 import 'package:stock_app/screen/stock/bloc/stock_bloc.dart';
 import 'package:stock_app/screen/stock/bloc/stock_event.dart';
 import 'package:stock_app/screen/stock/bloc/stock_state.dart';
+import 'package:stock_app/util/navigate.dart';
+import 'package:stock_app/util/string.dart';
 
 import '../../../repositories/symbol_repository/symbol_repository.dart';
 import '../../../util/globals.dart';
@@ -20,8 +27,10 @@ class StocksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SymbolRepository repository = SymbolRepository();
+    Box<UserHive> userBox = Hive.box<UserHive>('user');
+    UserHiveRepository userHiveRepository = UserHiveRepository(userBox: userBox);
     return BlocProvider(
-      create: (_) => StockBloc(symbolRepository: repository),
+      create: (_) => StockBloc(symbolRepository: repository, userHiveRepository: userHiveRepository,),
       child: StockPageView(symbol: symbol, shortName: shortName, different: different, regularMarket: regularMarket,),
     );
   }
@@ -44,11 +53,17 @@ class StockPageView extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+          leading: Row(
+            children: [
+              SizedBox(width: screenWidth * 0.018,),
+              IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.black),
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigate.pushPageReplacement(context, HomePage());
+                },
+              ),
+            ],
           ),
           title: Text(
             symbol,
@@ -59,10 +74,43 @@ class StockPageView extends StatelessWidget {
             ),
           ),
           actions: [
-            IconButton(
-              icon: const Icon(Icons.search, color: Colors.blueGrey,),
-              onPressed: () {},
+            BlocBuilder<StockBloc, StockState>(
+              buildWhen: (previous, next) {
+                return previous.dropDownItem != next.dropDownItem || previous.favoriteStatus != next.favoriteStatus;
+              },
+              builder: (context, state) {
+                switch(state.favoriteStatus) {
+                  case StockStatus.initial:
+                    context.read<StockBloc>().add(StockCheckFavorite(symbol: symbol,));
+                    return const Center();
+                  case StockStatus.loading:
+                    return const Center();
+                  default:
+                    return DropdownButton(
+                      value: null,
+                      items: state.dropDownItem.map((e) {
+                        return DropdownMenuItem(
+                          child: Text(e),
+                          value: e,
+                        );
+                      }).toList(),
+                      onChanged: (dynamic a) {
+                        if (a == joinGroupString) {
+                          Navigate.pushPage(context, BlogPage());
+                        }
+                        if (a == addToListString) {
+                          context.read<StockBloc>().add(StockChangeFavorite(symbol: symbol, shortName: shortName, type: 0));
+                        }
+                        if (a == deleteFromListString) {
+                          context.read<StockBloc>().add(StockChangeFavorite(symbol: symbol, shortName: shortName, type: 1));
+                        }
+                      },
+                      icon: Icon(Icons.more_horiz),
+                    );
+                }
+              },
             ),
+            SizedBox(width: screenWidth * 0.06,),
           ],
         ),
         body: Column(

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:stock_app/component/symbol_tile.dart';
 import 'package:stock_app/repositories/symbol_repository/symbol_repository.dart';
 import 'package:stock_app/screen/home/bloc/home_bloc.dart';
 import 'package:stock_app/screen/home/bloc/home_event.dart';
 import 'package:stock_app/screen/home/bloc/home_state.dart';
+import 'package:stock_app/screen/login/view/login.dart';
 import 'package:stock_app/util/globals.dart';
+import 'package:stock_app/util/navigate.dart';
 import 'package:stock_app/util/string.dart';
 
 class HomePage extends StatelessWidget {
@@ -57,43 +60,50 @@ class _HomePageViewState extends State<HomePageView> {
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
+    print(screenHeight);
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: screenHeight * 0.08,
         backgroundColor: Colors.white,
         centerTitle: false,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        title: Row(
           children: [
-            Text(
-              stockString,
-              style: const TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 30,
-              ),
-            ),
-            Text(
-              '${DateTime.now().day} ${month.elementAt(DateTime.now().month)}',
-              style: const TextStyle(
-                color: Color(0xFF9F9F9F),
-                fontWeight: FontWeight.bold,
-                fontSize: 27,
-              ),
+            SizedBox(width: 0.01 * screenWidth,),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  stockString,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                  ),
+                ),
+                Text(
+                  '${DateTime.now().day} ${month.elementAt(DateTime.now().month)}',
+                  style: const TextStyle(
+                    color: Color(0xFF9F9F9F),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 27,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
         actions: [
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              editString,
-              style: const TextStyle(
-                color: Colors.blue,
-                fontSize: 20,
-              ),
+          InkWell(
+            child: ProfilePicture(
+              name: account.name,
+              radius: 0.025 * screenHeight,
+              fontsize: 18,
             ),
+            onTap: () {
+              Navigate.pushPage(context, LoginPage());
+            },
           ),
+          SizedBox(width: screenWidth * 0.05,)
         ],
       ),
       body: SingleChildScrollView(

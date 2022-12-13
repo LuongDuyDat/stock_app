@@ -25,3 +25,6 @@ String openString = lang == 'en' ? 'Open' : "";
 String highString = lang == 'en' ? 'High' : "";
 String lowString = lang == 'en' ? 'Low' : "";
 String nameString = lang == 'en' ? 'Your Name' : "";
+String joinGroupString = lang == 'en' ? 'Join Group' : "";
+String addToListString = lang == 'en' ? 'Add to list' : "";
+String deleteFromListString = lang == 'en' ? 'Delete from list' : "";

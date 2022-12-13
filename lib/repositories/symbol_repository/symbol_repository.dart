@@ -1,7 +1,9 @@
 import 'package:stock_app/finance_yahoo_api/finance_yahoo_api.dart';
 import 'package:stock_app/finance_yahoo_api/models/symbol_quotes.dart';
+import 'package:stock_app/repositories/social_repository/models/favorite_symbol.dart';
 import 'package:stock_app/repositories/symbol_repository/models/favortite_symbols.dart';
 import 'package:stock_app/repositories/symbol_repository/models/symbol_tile.dart';
+import 'package:stock_app/util/globals.dart';
 
 import '../../finance_yahoo_api/models/stock_chart.dart';
 import '../../finance_yahoo_api/models/symbol_news.dart';
@@ -43,22 +45,15 @@ class SymbolRepository {
   }
 
   Stream<SymbolTile> getFavoriteSymbolTiles(String id, int start, int end) async* {
-    List<FavoriteSymbol> symbols = await getFavoriteSymbol(id, start, end);
+    List<FavoriteSymbolHive> symbols = account.favoriteSymbols;
 
     for (int i = 0; i < symbols.length; i++) {
-      StockChart temp = await getStockChart('1d', '1m', symbols.elementAt(i).symbol);
-      // List<double> t = [];
-      // for (int i = 0; i < temp.close.length; i++) {
-      //   if (temp.close.elementAt(i) != null) {
-      //     t.add(temp.close.elementAt(i)!);
-      //   }
-      // }
-      // temp.close.remove(null);
+      StockChart temp = await getStockChart('1d', '1m', symbols.elementAt(i).name);
       yield SymbolTile(
         close: temp.close,
         regularMarketPrice: temp.regularMarketPrice,
         previousClose: temp.previousClose,
-        symbol: symbols.elementAt(i).symbol,
+        symbol: symbols.elementAt(i).name,
         shortName: symbols.elementAt(i).shortName,
       );
     }
