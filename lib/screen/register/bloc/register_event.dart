@@ -54,3 +54,7 @@ class RegisterPasswordChange extends RegisterEvent {
 class RegisterSubmit extends RegisterEvent {
   const RegisterSubmit();
 }
+
+class RegisterChangeRegisterStatus extends RegisterEvent {
+  const RegisterChangeRegisterStatus();
+}

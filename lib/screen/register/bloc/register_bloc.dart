@@ -1,7 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:stock_app/repositories/social_repository/user_hive_repository.dart';
-import 'package:stock_app/screen/login/bloc/login_event.dart';
-import 'package:stock_app/screen/login/bloc/login_state.dart';
 import 'package:stock_app/screen/register/bloc/register_event.dart';
 import 'package:stock_app/screen/register/bloc/register_state.dart';
 
@@ -14,10 +12,20 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     on<RegisterEmailChange>(_onEmailChange);
     on<RegisterNameChange>(_onNameChange);
     on<RegisterPasswordChange>(_onPasswordChange);
+    on<RegisterChangeRegisterStatus>(_onChangeStatus);
     on<RegisterSubmit>(_onSubmit);
   }
 
   final UserHiveRepository _userRepository;
+
+  void _onChangeStatus(
+      RegisterChangeRegisterStatus event,
+      Emitter<RegisterState> emit,
+      ) {
+    emit(state.copyWith(
+      registerStatus: () => RegisterStatus.initial,
+    ));
+  }
 
   void _onEmailChange(
       RegisterEmailChange event,

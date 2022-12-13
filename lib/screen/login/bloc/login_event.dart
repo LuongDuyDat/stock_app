@@ -32,3 +32,7 @@ class LoginPasswordChange extends LoginEvent {
 class LoginSubmit extends LoginEvent {
   const LoginSubmit();
 }
+
+class LoginChangeStatus extends LoginEvent {
+  const LoginChangeStatus();
+}

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:stock_app/repositories/social_repository/models/post_hive.dart';
+import 'package:stock_app/repositories/social_repository/models/user_hive.dart';
 import 'package:stock_app/screen/home/view/home.dart';
 import 'package:stock_app/screen/login/view/login.dart';
 import 'package:stock_app/screen/social/blog.dart';
@@ -15,6 +18,11 @@ void main() async{
   //   print(result.close.elementAt(i));
   // }
   Bloc.observer = SimpleBlocObserver();
+  await Hive.initFlutter();
+  Hive.registerAdapter(UserHiveAdapter());
+  Hive.registerAdapter(PostHiveAdapter());
+  await Hive.openBox<UserHive>('user');
+  await Hive.openBox<PostHive>('post');
   runApp(const MyApp());
 }
 

@@ -1,21 +1,47 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:stock_app/component/button.dart';
 import 'package:stock_app/component/login_animated_picture.dart';
 import 'package:stock_app/component/text_field.dart';
+import 'package:stock_app/repositories/social_repository/models/user_hive.dart';
+import 'package:stock_app/repositories/social_repository/user_hive_repository.dart';
+import 'package:stock_app/screen/home/view/home.dart';
+import 'package:stock_app/screen/login/bloc/login_bloc.dart';
+import 'package:stock_app/screen/login/bloc/login_event.dart';
+import 'package:stock_app/screen/login/bloc/login_state.dart';
 import 'package:stock_app/screen/register/view/register.dart';
 import 'package:stock_app/util/navigate.dart';
 import 'package:stock_app/util/string.dart';
 
-class LoginPage extends StatefulWidget {
+import '../../../util/globals.dart';
+
+class LoginPage extends StatelessWidget {
   const LoginPage({ Key? key }) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  Widget build(BuildContext context) {
+    screenWidth = MediaQuery.of(context).size.width;
+    screenHeight = MediaQuery.of(context).size.height;
+    Box<UserHive> userBox = Hive.box<UserHive>('user');
+    return BlocProvider(
+      create: (_) => LoginBloc(userRepository: UserHiveRepository(userBox: userBox)),
+      child: LoginView(),
+    );
+  }
+
 }
 
-class _LoginPageState extends State<LoginPage> {
+class LoginView extends StatefulWidget {
+  const LoginView({ Key? key }) : super(key: key);
+
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
   int activeIndex = 0;
 
   @override
@@ -86,12 +112,31 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
               const SizedBox(height: 30,),
-              Button(
-                height: 45,
-                color: Colors.black,
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-                child: Text(loginString, style: const TextStyle(color: Colors.white, fontSize: 16.0),),
-                onPressed: () {},
+              BlocBuilder<LoginBloc, LoginState>(
+                builder: (context, state) {
+                  switch(state.loginStatus) {
+                    case LoginStatus.initial:
+                      return button(false);
+                    case LoginStatus.loading:
+                      return button(true);
+                    case LoginStatus.success:
+                      return FutureBuilder<Future>(
+                        builder: (context, snapshot) {
+                          return const Center();
+                        },
+                        future: Future.microtask(() {
+                          Navigate.popPage(context);
+                          return Navigate.pushPage(context, const HomePage());
+                        }),
+                      );
+                    case LoginStatus.failure:
+                      Future.delayed(const Duration(seconds: 1), () {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Email or Username are wrong',)));
+                      });
+                      context.read<LoginBloc>().add(LoginChangeStatus());
+                      return Center();
+                  }
+                },
               ),
               const SizedBox(height: 30,),
               Row(
@@ -116,6 +161,33 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       )
+    );
+  }
+
+  Widget button(bool _isLoading) {
+    return BlocBuilder<LoginBloc, LoginState>(
+      builder: (context, state) {
+        return Button(
+          height: 45,
+          color: Colors.black,
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+          child: _isLoading == false ? Text(loginString, style: const TextStyle(color: Colors.white, fontSize: 16.0),)
+              : Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.white,
+              color: Colors.black,
+              strokeWidth: 2,
+            ),
+          ),
+          onPressed: () {
+            if (state.username.length < 6 || state.password.length < 6) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Please follow the instruction',)));
+            } else {
+              context.read<LoginBloc>().add(LoginSubmit());
+            }
+          },
+        );
+      },
     );
   }
 }
