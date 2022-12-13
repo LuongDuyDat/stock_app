@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:stock_app/repositories/social_repository/models/favorite_symbol.dart';
 import 'package:stock_app/repositories/social_repository/models/user_hive.dart';
 
 class UserHiveRepository {
@@ -15,7 +16,14 @@ class UserHiveRepository {
         return false;
       }
     }
-    UserHive u = UserHive(name: name, userEmail: email, userName: userName, passWord: passWord);
+    Box<FavoriteSymbolHive> symbolBox = Hive.box<FavoriteSymbolHive>('symbol');
+    UserHive u = UserHive(
+      name: name,
+      userEmail: email,
+      userName: userName,
+      passWord: passWord,
+      favoriteSymbols: HiveList(symbolBox),
+    );
     userBox.add(u);
     return true;
   }

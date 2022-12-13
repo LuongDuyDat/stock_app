@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:stock_app/repositories/social_repository/models/comment_hive.dart';
+import 'package:stock_app/repositories/social_repository/models/favorite_symbol.dart';
 import 'package:stock_app/repositories/social_repository/models/post_hive.dart';
 import 'package:stock_app/repositories/social_repository/models/user_hive.dart';
 import 'package:stock_app/screen/home/view/home.dart';
@@ -21,8 +23,13 @@ void main() async{
   await Hive.initFlutter();
   Hive.registerAdapter(UserHiveAdapter());
   Hive.registerAdapter(PostHiveAdapter());
+  Hive.registerAdapter(FavoriteSymbolHiveAdapter());
+  Hive.registerAdapter(CommentHiveAdapter());
+  //await init_database();
   await Hive.openBox<UserHive>('user');
   await Hive.openBox<PostHive>('post');
+  await Hive.openBox<FavoriteSymbolHive>('symbol');
+  await Hive.openBox<CommentHive>('comment');
   runApp(const MyApp());
 }
 
@@ -49,4 +56,11 @@ class MyApp extends StatelessWidget {
       home: const LoginPage(),
     );
   }
+}
+
+Future<void> init_database() async {
+  await Hive.deleteBoxFromDisk('user');
+  await Hive.deleteBoxFromDisk('post');
+  await Hive.deleteBoxFromDisk('symbol');
+  await Hive.deleteBoxFromDisk('comment');
 }

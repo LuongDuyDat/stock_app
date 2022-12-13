@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:stock_app/repositories/social_repository/models/favorite_symbol.dart';
 
 part 'user_hive.g.dart';
 
@@ -12,11 +13,14 @@ class UserHive extends HiveObject {
   final String userName;
   @HiveField(3)
   final String passWord;
+  @HiveField(4)
+  final HiveList<FavoriteSymbolHive> favoriteSymbols;
 
   UserHive({
     required this.name,
     required this.userEmail,
     required this.userName,
     required this.passWord,
+    required this.favoriteSymbols,
   });
 }

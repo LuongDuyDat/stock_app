@@ -1,44 +1,35 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_hive.dart';
+part of 'favorite_symbol.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class UserHiveAdapter extends TypeAdapter<UserHive> {
+class FavoriteSymbolHiveAdapter extends TypeAdapter<FavoriteSymbolHive> {
   @override
-  final int typeId = 0;
+  final int typeId = 2;
 
   @override
-  UserHive read(BinaryReader reader) {
+  FavoriteSymbolHive read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return UserHive(
+    return FavoriteSymbolHive(
       name: fields[0] as String,
-      userEmail: fields[1] as String,
-      userName: fields[2] as String,
-      passWord: fields[3] as String,
-      favoriteSymbols: (fields[4] as HiveList).castHiveList(),
+      shortName: fields[1] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, UserHive obj) {
+  void write(BinaryWriter writer, FavoriteSymbolHive obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(2)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.userEmail)
-      ..writeByte(2)
-      ..write(obj.userName)
-      ..writeByte(3)
-      ..write(obj.passWord)
-      ..writeByte(4)
-      ..write(obj.favoriteSymbols);
+      ..write(obj.shortName);
   }
 
   @override
@@ -47,7 +38,7 @@ class UserHiveAdapter extends TypeAdapter<UserHive> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is UserHiveAdapter &&
+      other is FavoriteSymbolHiveAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

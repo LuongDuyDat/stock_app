@@ -19,17 +19,32 @@ class PostHiveAdapter extends TypeAdapter<PostHive> {
     return PostHive(
       id: fields[0] as String,
       image: fields[1] as Uint8List?,
+      content: fields[2] as String,
+      createAt: fields[3] as DateTime,
+      like: fields[4] as int,
+      symbol: fields[5] as String,
+      comments: (fields[6] as HiveList).castHiveList(),
     );
   }
 
   @override
   void write(BinaryWriter writer, PostHive obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.image);
+      ..write(obj.image)
+      ..writeByte(2)
+      ..write(obj.content)
+      ..writeByte(3)
+      ..write(obj.createAt)
+      ..writeByte(4)
+      ..write(obj.like)
+      ..writeByte(5)
+      ..write(obj.symbol)
+      ..writeByte(6)
+      ..write(obj.comments);
   }
 
   @override
