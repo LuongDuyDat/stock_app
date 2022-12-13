@@ -55,21 +55,31 @@ class _RegisterPageState extends State<RegisterPage> {
                   children: [
                     const SizedBox(height: 10,),
                     InputField(
+                      label: nameString,
+                      hintText: nameString,
+                      icon: Icons.label,
+                      type: 1,
+                    ),
+                    const SizedBox(height: 10,),
+                    InputField(
                       label: emailString,
                       hintText: emailString,
                       icon: Icons.email,
+                      type: 0,
                     ),
                     const SizedBox(height: 20,),
                     InputField(
                       label: usernameString,
                       hintText: usernameString,
                       icon: Icons.person,
+                      type: 0,
                     ),
                     const SizedBox(height: 20,),
                     InputField(
                       label: passwordString,
                       hintText: passwordString,
                       icon: Icons.password,
+                      type: 0,
                     ),
                   ],
                 ),

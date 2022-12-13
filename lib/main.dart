@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stock_app/screen/home/view/home.dart';
+import 'package:stock_app/screen/login/view/login.dart';
 import 'package:stock_app/screen/social/blog.dart';
 import 'package:stock_app/screen/social/home.dart';
 import 'package:stock_app/screen/social/search.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const BlogPage(),
+      home: const LoginPage(),
     );
   }
 }

@@ -24,3 +24,4 @@ String searchString = lang == 'en' ? 'Search' : "";
 String openString = lang == 'en' ? 'Open' : "";
 String highString = lang == 'en' ? 'High' : "";
 String lowString = lang == 'en' ? 'Low' : "";
+String nameString = lang == 'en' ? 'Your Name' : "";

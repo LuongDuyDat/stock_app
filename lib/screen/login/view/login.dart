@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:stock_app/component/button.dart';
 import 'package:stock_app/component/login_animated_picture.dart';
 import 'package:stock_app/component/text_field.dart';
-import 'package:stock_app/screen/register.dart';
+import 'package:stock_app/screen/register/view/register.dart';
 import 'package:stock_app/util/navigate.dart';
 import 'package:stock_app/util/string.dart';
 
@@ -70,9 +70,9 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(height: 40,),
-              InputField(label: emailString, hintText: userOrEmailString, icon: Icons.person),
+              InputField(label: emailString, hintText: userOrEmailString, icon: Icons.person, type: 0,),
               const SizedBox(height: 20,),
-              InputField(label: passwordString, hintText: passwordString, icon: Icons.key),
+              InputField(label: passwordString, hintText: passwordString, icon: Icons.key, type: 0,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
