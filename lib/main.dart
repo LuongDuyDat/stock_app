@@ -5,11 +5,7 @@ import 'package:stock_app/repositories/social_repository/models/comment_hive.dar
 import 'package:stock_app/repositories/social_repository/models/favorite_symbol.dart';
 import 'package:stock_app/repositories/social_repository/models/post_hive.dart';
 import 'package:stock_app/repositories/social_repository/models/user_hive.dart';
-import 'package:stock_app/screen/home/view/home.dart';
 import 'package:stock_app/screen/login/view/login.dart';
-import 'package:stock_app/screen/social/blog.dart';
-import 'package:stock_app/screen/social/home.dart';
-import 'package:stock_app/screen/social/search.dart';
 
 import 'bloc_observer.dart';
 
@@ -18,6 +14,18 @@ void main() async{
   // StockChart result = await client.getStockChart("1d", "1m", "A");
   // for (int i = 0; i < result.close.length; i++) {
   //   print(result.close.elementAt(i));
+  // }
+  // ModelAPI modelAPI = ModelAPI();
+  // double values1 = 148.30999755859375;
+  // List<double> m = await modelAPI.getPredict('A', values1.toString(), 147.80999755859375.toString(),
+  //     146.6300048828125.toString(),
+  //     142.91000366210938.toString(),
+  //     140.94000244140625.toString(),
+  //     142.64999389648438.toString(),
+  //     142.16000366210938.toString(),);
+  //
+  // for (int i = 0; i < m.length; i++) {
+  //   print(m.elementAt(i));
   // }
   Bloc.observer = SimpleBlocObserver();
   await Hive.initFlutter();

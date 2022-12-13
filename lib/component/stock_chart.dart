@@ -228,7 +228,7 @@ class _StockChartComponent extends State<StockChartComponent> {
             }
           }
           break;
-        default:
+        case 2:
           List<String> month = ['','JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP', 'OCT', 'NOV', 'DEC',];
           int interval = widget.timeStamp!.length ~/ 6;
           for (int i = 1; i <= 5; i++) {
@@ -238,6 +238,13 @@ class _StockChartComponent extends State<StockChartComponent> {
             } else {
               text = const Text('');
             }
+          }
+          break;
+        default:
+          if (value.toInt() < widget.timeStamp!.length) {
+            text = Text((widget.timeStamp!.elementAt(value.toInt()).day).toString());
+          } else {
+            text = const Text('');
           }
       }
     } else {

@@ -1,5 +1,6 @@
 import 'package:stock_app/finance_yahoo_api/finance_yahoo_api.dart';
 import 'package:stock_app/finance_yahoo_api/models/symbol_quotes.dart';
+import 'package:stock_app/model_api/model_api.dart';
 import 'package:stock_app/repositories/social_repository/models/favorite_symbol.dart';
 import 'package:stock_app/repositories/symbol_repository/models/favortite_symbols.dart';
 import 'package:stock_app/repositories/symbol_repository/models/symbol_tile.dart';
@@ -12,10 +13,26 @@ import 'models/quote.dart';
 import 'models/stock.dart';
 
 class SymbolRepository {
-  SymbolRepository({FinanceYahooAPIClient? financeYahooAPIClient})
-      : _financeYahooAPIClient = financeYahooAPIClient ?? FinanceYahooAPIClient();
+  SymbolRepository({FinanceYahooAPIClient? financeYahooAPIClient, ModelAPI? modelAPI})
+      : _financeYahooAPIClient = financeYahooAPIClient ?? FinanceYahooAPIClient(),
+        _modelAPI = modelAPI ?? ModelAPI();
 
   final FinanceYahooAPIClient _financeYahooAPIClient;
+
+  final ModelAPI _modelAPI;
+
+  Future<List<double>> getSymbolPredict(String symbol, double value1, double value2, double value3, double value4, double value5, double value6, double value7) {
+    return _modelAPI.getPredict(
+      symbol,
+      value1.toString(),
+      value2.toString(),
+      value3.toString(),
+      value4.toString(),
+      value5.toString(),
+      value6.toString(),
+      value7.toString(),
+    );
+  }
 
   Future<SymbolSearch> getSymbolSearch(String symbol) async{
     return await _financeYahooAPIClient.getSymbolSearch(symbol);
@@ -25,8 +42,15 @@ class SymbolRepository {
     return await _financeYahooAPIClient.getSymbolNew(symbol);
   }
 
-  Future<StockChart> getStockChart(String range, String interval, String symbol) async{
-    return await _financeYahooAPIClient.getStockChart(range, interval, symbol);
+  Future<Stock> getStockChart(String range, String interval, String symbol) async{
+    StockChart stockChart = await _financeYahooAPIClient.getStockChart(range, interval, symbol);
+
+    return Stock(
+      close: stockChart.close,
+      regularMarketPrice: stockChart.regularMarketPrice,
+      previousClose: stockChart.previousClose,
+      timeStamp: stockChart.timeStamp,
+    );
   }
 
   Future<SymbolQuotes> getStockQuotes(String symbol) async{
@@ -48,7 +72,7 @@ class SymbolRepository {
     List<FavoriteSymbolHive> symbols = account.favoriteSymbols;
 
     for (int i = 0; i < symbols.length; i++) {
-      StockChart temp = await getStockChart('1d', '1m', symbols.elementAt(i).name);
+      Stock temp = await getStockChart('1d', '1m', symbols.elementAt(i).name);
       yield SymbolTile(
         close: temp.close,
         regularMarketPrice: temp.regularMarketPrice,
@@ -64,7 +88,7 @@ class SymbolRepository {
     SymbolSearch symbolSearch = await getSymbolSearch(searchContent);
 
     for (int i = 0; i < symbolSearch.symbolList.length; i++) {
-      StockChart temp = await getStockChart('1d', '1m', symbolSearch.symbolList.elementAt(i).symbol);
+      Stock temp = await getStockChart('1d', '1m', symbolSearch.symbolList.elementAt(i).symbol);
       if (temp.previousClose != -1) {
         yield SymbolTile(
           close: temp.close,
@@ -102,13 +126,8 @@ class SymbolRepository {
         time = '1y';
         interval = '1d';
     }
-    StockChart temp = await getStockChart(time, interval, symbol);
+    Stock temp = await getStockChart(time, interval, symbol);
 
-    return Stock(
-        close: temp.close,
-        regularMarketPrice: temp.regularMarketPrice,
-        previousClose: temp.previousClose,
-        timeStamp: temp.timeStamp,
-    );
+    return temp;
   }
 }

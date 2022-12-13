@@ -2,12 +2,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stock_app/finance_yahoo_api/models/symbol_quotes.dart';
 import 'package:stock_app/repositories/social_repository/user_hive_repository.dart';
 import 'package:stock_app/repositories/symbol_repository/models/quote.dart';
-import 'package:stock_app/screen/stock/bloc/stock_event.dart';
-import 'package:stock_app/screen/stock/bloc/stock_state.dart';
+import 'package:stock_app/screen/stock/bloc/stock_bloc/stock_event.dart';
+import 'package:stock_app/screen/stock/bloc/stock_bloc/stock_state.dart';
 import 'package:stock_app/util/string.dart';
 
-import '../../../repositories/symbol_repository/models/stock.dart';
-import '../../../repositories/symbol_repository/symbol_repository.dart';
+import '../../../../repositories/symbol_repository/models/stock.dart';
+import '../../../../repositories/symbol_repository/symbol_repository.dart';
 
 class StockBloc extends Bloc<StockEvent, StockState> {
   StockBloc({
@@ -37,12 +37,12 @@ class StockBloc extends Bloc<StockEvent, StockState> {
 
     if (isFavorite) {
       emit(state.copyWith(
-        dropDownItem: () => [joinGroupString, deleteFromListString],
+        dropDownItem: () => [joinGroupString, deleteFromListString, predictString],
         favoriteStatus: () => StockStatus.success,
       ));
     } else {
       emit(state.copyWith(
-        dropDownItem: () => [joinGroupString, addToListString],
+        dropDownItem: () => [joinGroupString, addToListString, predictString],
         favoriteStatus: () => StockStatus.success,
       ));
     }
@@ -55,12 +55,12 @@ class StockBloc extends Bloc<StockEvent, StockState> {
     if (event.type == 0) {
       await _userHiveRepository.addToFavorite(event.symbol, event.shortName);
       emit(state.copyWith(
-        dropDownItem: () => [joinGroupString, deleteFromListString],
+        dropDownItem: () => [joinGroupString, deleteFromListString, predictString],
       ));
     } else {
       await _userHiveRepository.deleteFromFavorite(event.symbol);
       emit(state.copyWith(
-        dropDownItem: () => [joinGroupString, addToListString],
+        dropDownItem: () => [joinGroupString, addToListString, predictString],
       ));
     }
   }

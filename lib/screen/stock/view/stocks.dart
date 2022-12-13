@@ -7,9 +7,10 @@ import 'package:stock_app/repositories/social_repository/models/user_hive.dart';
 import 'package:stock_app/repositories/social_repository/user_hive_repository.dart';
 import 'package:stock_app/screen/home/view/home.dart';
 import 'package:stock_app/screen/social/blog.dart';
-import 'package:stock_app/screen/stock/bloc/stock_bloc.dart';
-import 'package:stock_app/screen/stock/bloc/stock_event.dart';
-import 'package:stock_app/screen/stock/bloc/stock_state.dart';
+import 'package:stock_app/screen/stock/bloc/stock_bloc/stock_bloc.dart';
+import 'package:stock_app/screen/stock/bloc/stock_bloc/stock_event.dart';
+import 'package:stock_app/screen/stock/bloc/stock_bloc/stock_state.dart';
+import 'package:stock_app/screen/stock/view/predict_stock.dart';
 import 'package:stock_app/util/navigate.dart';
 import 'package:stock_app/util/string.dart';
 
@@ -75,9 +76,6 @@ class StockPageView extends StatelessWidget {
           ),
           actions: [
             BlocBuilder<StockBloc, StockState>(
-              buildWhen: (previous, next) {
-                return previous.dropDownItem != next.dropDownItem || previous.favoriteStatus != next.favoriteStatus;
-              },
               builder: (context, state) {
                 switch(state.favoriteStatus) {
                   case StockStatus.initial:
@@ -103,6 +101,17 @@ class StockPageView extends StatelessWidget {
                         }
                         if (a == deleteFromListString) {
                           context.read<StockBloc>().add(StockChangeFavorite(symbol: symbol, shortName: shortName, type: 1));
+                        }
+                        if (a == predictString) {
+                          Navigate.pushPage(context, PredictStockPage(
+                            symbol: symbol,
+                            shortName: shortName,
+                            regularMarket: regularMarket,
+                            different: different,
+                            open: state.quote.open,
+                            high: state.quote.high,
+                            low: state.quote.low,
+                          ));
                         }
                       },
                       icon: Icon(Icons.more_horiz),

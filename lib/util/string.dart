@@ -28,3 +28,4 @@ String nameString = lang == 'en' ? 'Your Name' : "";
 String joinGroupString = lang == 'en' ? 'Join Group' : "";
 String addToListString = lang == 'en' ? 'Add to list' : "";
 String deleteFromListString = lang == 'en' ? 'Delete from list' : "";
+String predictString = lang == 'en' ? 'Predict' : "";
