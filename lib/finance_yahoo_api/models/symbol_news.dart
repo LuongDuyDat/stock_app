@@ -21,7 +21,7 @@ class SymbolNew {
       publishTime:json['providerPublishTime'] != null ? DateTime.fromMillisecondsSinceEpoch((json['providerPublishTime'] as int) * 1000) : null,
       publisher: json['publisher'] as String,
       link: json['link'] as String,
-      imgUrl: json['thumbnail']['resolutions'][0]['url'] != null ? json['thumbnail']['resolutions'][0]['url'] as String : null,
+      imgUrl: json['thumbnail'] != null ? json['thumbnail']['resolutions'][0]['url'] as String : null,
       relatedSymbol: List<String>.from(json['relatedTickers']),
 
     );

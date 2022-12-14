@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:hive/hive.dart';
 import 'package:stock_app/repositories/social_repository/models/comment_hive.dart';
+import 'package:stock_app/repositories/social_repository/models/user_hive.dart';
 
 part 'post_hive.g.dart';
 
@@ -16,7 +17,7 @@ class PostHive extends HiveObject {
   @HiveField(3)
   final DateTime createAt;
   @HiveField(4)
-  final int like;
+  final HiveList<UserHive> like;
   @HiveField(5)
   final String symbol;
   @HiveField(6)

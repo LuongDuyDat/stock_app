@@ -32,3 +32,4 @@ String predictString = lang == 'en' ? 'Predict' : "";
 String groupString = lang == 'en' ? 'Group' : "";
 String homeString = lang == 'en' ? "Home" : "";
 String newsString = lang == 'en' ? "News" : "";
+String writeComment = lang == 'en' ? "Write a comment" : "";

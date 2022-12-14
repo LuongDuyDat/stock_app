@@ -3,11 +3,15 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hive/hive.dart';
+import 'package:stock_app/repositories/social_repository/models/post_hive.dart';
+import 'package:stock_app/repositories/social_repository/post_hive_repository.dart';
 import 'package:stock_app/util/globals.dart';
 
-class PostItem extends StatelessWidget {
+class PostItem extends StatefulWidget {
   const PostItem({
     Key? key,
+    required this.id,
     required this.name,
     required this.time,
     required this.description,
@@ -16,12 +20,37 @@ class PostItem extends StatelessWidget {
     required this.comment,
   }) : super(key: key);
 
+  final dynamic id;
   final String name;
   final String time;
   final String description;
   final Uint8List image;
   final int like;
   final int comment;
+
+  @override
+  State<StatefulWidget> createState() => _PostItemState();
+
+}
+
+class _PostItemState extends State<PostItem> {
+
+  late PostHiveRepository postHiveRepository;
+  late int like;
+  late bool isFavorite;
+
+  @override
+  void initState() {
+    Box<PostHive> p = Hive.box<PostHive>('post');
+    postHiveRepository = PostHiveRepository(postBox: p);
+    PostHive? post = p.get(widget.id);
+    if (post == null) {
+      isFavorite = false;
+    }
+    isFavorite = post!.like.contains(account);
+    like = widget.like;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +68,9 @@ class PostItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ProfilePicture(
-                name: name,
+                name: widget.name,
                 radius: 16,
-                fontsize: 18,
+                fontsize: 16,
                 //count: 3,
                 //random: true,
                 tooltip: true,
@@ -50,8 +79,8 @@ class PostItem extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(name, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
-                  Text(time, style: TextStyle(fontSize: 12,),),
+                  Text(widget.name, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
+                  Text(widget.time, style: TextStyle(fontSize: 12,),),
                 ],
               ),
             ],
@@ -59,7 +88,7 @@ class PostItem extends StatelessWidget {
           SizedBox(height: 10,),// space
           // Description
           Text(
-            description,
+            widget.description,
             overflow: TextOverflow.ellipsis,
             maxLines: 3,
             textAlign: TextAlign.start,
@@ -72,7 +101,7 @@ class PostItem extends StatelessWidget {
                 height: MediaQuery.of(context).size.height*0.25,
                 margin: EdgeInsets.only(top: 10, bottom: 10),
                 decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade50, width: 1.5)),
-                child: Image.memory(image, fit: BoxFit.cover,),
+                child: Image.memory(widget.image, fit: BoxFit.cover,),
               ),
             ],
           ),
@@ -88,8 +117,26 @@ class PostItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         IconButton(
-                          icon: Icon(FontAwesomeIcons.heart),
-                          onPressed: () {},
+                          icon: isFavorite ? Icon(FontAwesomeIcons.heart, color: Colors.red,) : Icon(FontAwesomeIcons.heart,),
+                          onPressed: () async{
+                            if (isFavorite) {
+                              bool success = await postHiveRepository.deleteFavorite(account.key, widget.id);
+                              if (success) {
+                                setState(() {
+                                  isFavorite = false;
+                                  like--;
+                                });
+                              }
+                            } else {
+                              bool success = await postHiveRepository.addFavorite(account.key, widget.id);
+                              if (success) {
+                                setState(() {
+                                  isFavorite = true;
+                                  like++;
+                                });
+                              }
+                            }
+                          },
                         ),
                         Text(like.toString(),),
                       ],
@@ -105,7 +152,7 @@ class PostItem extends StatelessWidget {
                           icon: Icon(FontAwesomeIcons.comment),
                           onPressed: () {},
                         ),
-                        Text(comment.toString(),),
+                        Text(widget.comment.toString(),),
                       ],
                     )
                 ),
@@ -116,5 +163,4 @@ class PostItem extends StatelessWidget {
       ),
     );
   }
-
 }

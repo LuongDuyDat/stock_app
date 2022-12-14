@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:hive/hive.dart';
 import 'package:stock_app/repositories/social_repository/models/comment_hive.dart';
 import 'package:stock_app/repositories/social_repository/models/post_hive.dart';
+import 'package:stock_app/repositories/social_repository/models/user_hive.dart';
 
 class PostHiveRepository {
   final Box<PostHive> postBox;
@@ -12,8 +13,68 @@ class PostHiveRepository {
     required this.postBox,
   });
 
+  Future<bool> addFavorite(dynamic userKey, dynamic postKey) async {
+    PostHive? p = postBox.get(postKey);
+
+    Box<UserHive> userBox = Hive.box<UserHive>('user');
+    UserHive? u = userBox.get(userKey);
+
+    if (p == null || u == null) {
+      return false;
+    }
+
+    p.like.add(u);
+    await p.save();
+
+    return true;
+  }
+
+  Future<bool> deleteFavorite(dynamic userKey, dynamic postKey) async {
+    PostHive? p = postBox.get(postKey);
+
+    Box<UserHive> userBox = Hive.box<UserHive>('user');
+    UserHive? u = userBox.get(userKey);
+
+    if (p == null || u == null) {
+      return false;
+    }
+
+
+    int index = p.like.indexOf(u);
+
+    if (index == -1) {
+      return false;
+    }
+
+    await p.like.removeAt(index);
+    await p.save();
+
+    return true;
+  }
+
+  Future<CommentHive?> addComment(String userName, dynamic postKey, String content) async {
+    PostHive? p = postBox.get(postKey);
+
+    if (p == null) {
+      return null;
+    }
+
+    CommentHive comment = CommentHive(content: content, userName: userName, createAt: DateTime.now());
+
+    Box<CommentHive> commentBox = Hive.box<CommentHive>('comment');
+
+    await commentBox.add(comment);
+
+    p.comments.add(comment);
+
+    await p.save();
+
+    return comment;
+  }
+
   Future<PostHive> addPost(String name, Uint8List? image, String content, String symbol, DateTime time) async{
     Box<CommentHive> commentBox = Hive.box<CommentHive>('comment');
+    Box<UserHive> userBox = Hive.box<UserHive>('user');
     PostHive p = PostHive(
       id: name,
       image: image,
@@ -21,7 +82,7 @@ class PostHiveRepository {
       symbol: symbol,
       createAt: time,
       comments: HiveList(commentBox),
-      like: 0,
+      like: HiveList(userBox),
     );
     await postBox.add(p);
     return p;

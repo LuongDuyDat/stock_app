@@ -8,7 +8,9 @@ import 'package:stock_app/repositories/symbol_repository/symbol_repository.dart'
 import 'package:stock_app/screen/social/home/social_home_bloc/social_home_bloc.dart';
 import 'package:stock_app/screen/social/home/social_home_bloc/social_home_event.dart';
 import 'package:stock_app/screen/social/home/social_home_bloc/social_home_state.dart';
+import 'package:stock_app/screen/social/home/social_home_view/post.dart';
 import 'package:stock_app/util/globals.dart';
+import 'package:stock_app/util/navigate.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../../../../util/string.dart';
@@ -145,13 +147,15 @@ class _HomeBlogViewState extends State<HomeBlogView> {
                             itemBuilder: (context, index) {
                               return GestureDetector(
                                 onTap: () {
+                                  Navigate.pushPage(context, PostBlogPage(post: state.posts.elementAt(index)));
                                 },
                                 child: PostItem(
+                                  id: state.posts.elementAt(index).key,
                                   name: state.posts.elementAt(index).id,
                                   time: timeago.format(state.posts.elementAt(index).createAt, locale: 'en_short'),
                                   description: state.posts.elementAt(index).content,
                                   image: state.posts.elementAt(index).image!,
-                                  like: state.posts.elementAt(index).like,
+                                  like: state.posts.elementAt(index).like.length,
                                   comment: state.posts.elementAt(index).comments.length,
                                 ),
                               );
@@ -173,13 +177,15 @@ class _HomeBlogViewState extends State<HomeBlogView> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
+                              Navigate.pushPage(context, PostBlogPage(post: state.posts.elementAt(index)));
                             },
                             child: PostItem(
+                              id: state.posts.elementAt(index).key,
                               name: state.posts.elementAt(index).id,
                               time: timeago.format(state.posts.elementAt(index).createAt, locale: 'en_short'),
                               description: state.posts.elementAt(index).content,
                               image: state.posts.elementAt(index).image!,
-                              like: state.posts.elementAt(index).like,
+                              like: state.posts.elementAt(index).like.length,
                               comment: state.posts.elementAt(index).comments.length,
                             ),
                           );
@@ -205,13 +211,15 @@ class _HomeBlogViewState extends State<HomeBlogView> {
                             itemBuilder: (context, index) {
                               return GestureDetector(
                                 onTap: () {
+                                  Navigate.pushPage(context, PostBlogPage(post: state.searchPosts.elementAt(index)));
                                 },
                                 child: PostItem(
+                                  id: state.posts.elementAt(index).key,
                                   name: state.searchPosts.elementAt(index).id,
                                   time: timeago.format(state.searchPosts.elementAt(index).createAt, locale: 'en_short'),
                                   description: state.searchPosts.elementAt(index).content,
                                   image: state.searchPosts.elementAt(index).image!,
-                                  like: state.searchPosts.elementAt(index).like,
+                                  like: state.searchPosts.elementAt(index).like.length,
                                   comment: state.searchPosts.elementAt(index).comments.length,
                                 ),
                               );
@@ -233,13 +241,15 @@ class _HomeBlogViewState extends State<HomeBlogView> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
+                              Navigate.pushPage(context, PostBlogPage(post: state.searchPosts.elementAt(index)));
                             },
                             child: PostItem(
+                              id: state.posts.elementAt(index).key,
                               name: state.searchPosts.elementAt(index).id,
                               time: timeago.format(state.searchPosts.elementAt(index).createAt, locale: 'en_short'),
                               description: state.searchPosts.elementAt(index).content,
                               image: state.searchPosts.elementAt(index).image!,
-                              like: state.searchPosts.elementAt(index).like,
+                              like: state.searchPosts.elementAt(index).like.length,
                               comment: state.searchPosts.elementAt(index).comments.length,
                             ),
                           );

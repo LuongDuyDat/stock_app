@@ -21,7 +21,7 @@ class PostHiveAdapter extends TypeAdapter<PostHive> {
       image: fields[1] as Uint8List?,
       content: fields[2] as String,
       createAt: fields[3] as DateTime,
-      like: fields[4] as int,
+      like: (fields[4] as HiveList).castHiveList(),
       symbol: fields[5] as String,
       comments: (fields[6] as HiveList).castHiveList(),
     );
