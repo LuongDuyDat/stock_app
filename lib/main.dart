@@ -6,7 +6,7 @@ import 'package:stock_app/repositories/social_repository/models/favorite_symbol.
 import 'package:stock_app/repositories/social_repository/models/post_hive.dart';
 import 'package:stock_app/repositories/social_repository/models/user_hive.dart';
 import 'package:stock_app/screen/login/view/login.dart';
-import 'package:stock_app/screen/social/blog.dart';
+import 'package:stock_app/screen/social/home/social_home_view/blog.dart';
 
 import 'bloc_observer.dart';
 

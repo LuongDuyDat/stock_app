@@ -11,8 +11,8 @@ import 'package:stock_app/util/constants/color_constants.dart';
 import 'package:stock_app/util/constants/dismension_constant.dart';
 import 'package:stock_app/util/globals.dart';
 
-import '../../util/string.dart';
-import 'upload_post.dart';
+import '../../../../util/string.dart';
+import '../../upload_post.dart';
 
 class HomeBlogPage extends StatefulWidget {
   const HomeBlogPage({super.key, required this.symbol});

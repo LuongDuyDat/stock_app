@@ -6,7 +6,7 @@ import 'package:stock_app/component/stock_info.dart';
 import 'package:stock_app/repositories/social_repository/models/user_hive.dart';
 import 'package:stock_app/repositories/social_repository/user_hive_repository.dart';
 import 'package:stock_app/screen/home/view/home.dart';
-import 'package:stock_app/screen/social/blog.dart';
+import 'package:stock_app/screen/social/home/social_home_view/blog.dart';
 import 'package:stock_app/screen/stock/bloc/stock_bloc/stock_bloc.dart';
 import 'package:stock_app/screen/stock/bloc/stock_bloc/stock_event.dart';
 import 'package:stock_app/screen/stock/bloc/stock_bloc/stock_state.dart';

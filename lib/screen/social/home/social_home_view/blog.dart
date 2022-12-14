@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
-import 'package:stock_app/screen/social/home.dart';
+import 'package:stock_app/screen/social/home/social_home_view/home.dart';
 import 'package:stock_app/screen/social/profile.dart';
 import 'package:stock_app/screen/social/search.dart';
 import 'package:stock_app/screen/social/upload_post.dart';
@@ -10,7 +10,7 @@ import 'package:stock_app/util/constants/dismension_constant.dart';
 import 'package:stock_app/util/navigate.dart';
 import 'package:stock_app/util/string.dart';
 
-import '../../util/globals.dart';
+import '../../../../util/globals.dart';
 
 class BlogPage extends StatefulWidget {
   const BlogPage({Key? key, required this.symbol}) : super(key: key);
