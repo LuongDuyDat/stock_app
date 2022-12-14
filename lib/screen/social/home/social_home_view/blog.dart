@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:stock_app/screen/social/home/social_home_view/home.dart';
-import 'package:stock_app/screen/social/profile.dart';
-import 'package:stock_app/screen/social/search.dart';
+import 'package:stock_app/screen/social/home/social_home_view/new.dart';
 import 'package:stock_app/screen/social/upload_post.dart';
 import 'package:stock_app/util/constants/color_constants.dart';
-import 'package:stock_app/util/constants/dismension_constant.dart';
 import 'package:stock_app/util/navigate.dart';
 import 'package:stock_app/util/string.dart';
 
@@ -31,7 +28,7 @@ class _BlogPageState extends State<BlogPage> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(groupString + '' + widget.symbol, style: TextStyle(color: ColorPalette.text1Color),),
+          title: Text(groupString + ' ' + widget.symbol, style: TextStyle(color: ColorPalette.text1Color),),
           backgroundColor: Colors.white,
           leading: IconButton(
              onPressed: () {
@@ -61,7 +58,7 @@ class _BlogPageState extends State<BlogPage> {
         body: TabBarView(
           children: [
             HomeBlogPage(symbol: widget.symbol),
-            Center(),
+            BlogNewPage(symbol: widget.symbol),
           ],
         ),
       ),

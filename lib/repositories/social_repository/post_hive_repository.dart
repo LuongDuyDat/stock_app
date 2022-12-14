@@ -19,7 +19,7 @@ class PostHiveRepository {
       image: image,
       content: content,
       symbol: symbol,
-      createAt: DateTime.now(),
+      createAt: time,
       comments: HiveList(commentBox),
       like: 0,
     );

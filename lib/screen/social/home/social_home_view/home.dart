@@ -1,27 +1,17 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_profile_picture/flutter_profile_picture.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive/hive.dart';
-import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
-import 'package:stock_app/component/comment.dart';
 import 'package:stock_app/component/post.dart';
-import 'package:stock_app/component/text_field.dart';
 import 'package:stock_app/repositories/social_repository/models/post_hive.dart';
 import 'package:stock_app/repositories/social_repository/post_hive_repository.dart';
 import 'package:stock_app/repositories/symbol_repository/symbol_repository.dart';
 import 'package:stock_app/screen/social/home/social_home_bloc/social_home_bloc.dart';
 import 'package:stock_app/screen/social/home/social_home_bloc/social_home_event.dart';
 import 'package:stock_app/screen/social/home/social_home_bloc/social_home_state.dart';
-import 'package:stock_app/util/constants/color_constants.dart';
-import 'package:stock_app/util/constants/dismension_constant.dart';
 import 'package:stock_app/util/globals.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../../../../util/string.dart';
-import '../../upload_post.dart';
 
 class HomeBlogPage extends StatelessWidget {
   const HomeBlogPage({super.key, required this.symbol});

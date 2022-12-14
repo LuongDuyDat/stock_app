@@ -1,28 +1,21 @@
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_profile_picture/flutter_profile_picture.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stock_app/util/globals.dart';
 
-class PostItem extends StatelessWidget {
-  const PostItem({
+class NewItem extends StatelessWidget {
+  const NewItem({
     Key? key,
     required this.name,
-    required this.time,
+    this.time,
+    this.image,
     required this.description,
-    required this.image,
-    required this.like,
-    required this.comment,
   }) : super(key: key);
 
   final String name;
-  final String time;
+  final String? time;
+  final String? image;
   final String description;
-  final Uint8List image;
-  final int like;
-  final int comment;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,7 +34,7 @@ class PostItem extends StatelessWidget {
               ProfilePicture(
                 name: name,
                 radius: 16,
-                fontsize: 18,
+                fontsize: 16,
                 //count: 3,
                 //random: true,
                 tooltip: true,
@@ -51,7 +44,7 @@ class PostItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(name, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
-                  Text(time, style: TextStyle(fontSize: 12,),),
+                  Text(time != null ? time! : '', style: TextStyle(fontSize: 12,),),
                 ],
               ),
             ],
@@ -65,6 +58,7 @@ class PostItem extends StatelessWidget {
             textAlign: TextAlign.start,
           ),
           // image
+          image != null ?
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -72,46 +66,12 @@ class PostItem extends StatelessWidget {
                 height: MediaQuery.of(context).size.height*0.25,
                 margin: EdgeInsets.only(top: 10, bottom: 10),
                 decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade50, width: 1.5)),
-                child: Image.memory(image, fit: BoxFit.cover,),
+                child: Image.network(image!, fit: BoxFit.cover,),
               ),
             ],
-          ),
+          ) : const Center(),
           SizedBox(height: 10,), // space
           // likes and comment
-          Container(
-            child: Row(
-              children: [
-                // like
-                Expanded(
-                    flex: 1,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          icon: Icon(FontAwesomeIcons.heart),
-                          onPressed: () {},
-                        ),
-                        Text(like.toString(),),
-                      ],
-                    )
-                ),
-                // comment
-                Expanded(
-                    flex: 1,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          icon: Icon(FontAwesomeIcons.comment),
-                          onPressed: () {},
-                        ),
-                        Text(comment.toString(),),
-                      ],
-                    )
-                ),
-              ],
-            ),
-          ),
         ],
       ),
     );
