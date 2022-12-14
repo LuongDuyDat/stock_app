@@ -29,7 +29,7 @@ class PostHiveRepository {
 
   Stream<PostHive> getPostBySearch(String symbol, String content) async*{
     var items = postBox.values.where((element) {
-      if (element.symbol == symbol && (element.id.contains(content) || element.content.contains(content))) {
+      if (element.symbol == symbol && (element.id.toLowerCase().contains(content.toLowerCase()) || element.content.toLowerCase().contains(content))) {
         return true;
       }
       return false;

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,7 +19,7 @@ class PostItem extends StatelessWidget {
   final String name;
   final String time;
   final String description;
-  final String image;
+  final Uint8List image;
   final int like;
   final int comment;
   @override
@@ -67,7 +69,7 @@ class PostItem extends StatelessWidget {
                 height: MediaQuery.of(context).size.height*0.25,
                 margin: EdgeInsets.only(top: 10, bottom: 10),
                 decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade50, width: 1.5)),
-                child: Image.network(image, fit: BoxFit.cover,),
+                child: Image.memory(image, fit: BoxFit.cover,),
               ),
             ],
           ),

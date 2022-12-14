@@ -172,10 +172,10 @@ class SocialHomeBloc extends Bloc<SocialHomeEvent, SocialHomeState> {
         }
     );
 
-    if (state.postStatus != SocialHomeStatus.failure) {
+    if (state.searchPostStatus != SocialHomeStatus.failure) {
       emit(
           state.copyWith(
-              postStatus: () => SocialHomeStatus.success
+              searchPostStatus: () => SocialHomeStatus.success
           ));
     }
   }
