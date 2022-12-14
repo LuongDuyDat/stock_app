@@ -153,6 +153,7 @@ class _PostBlogPageState extends State<PostBlogPage> {
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       return Comment(
+                        createAt: commentList.reversed.elementAt(index).createAt,
                         name: commentList.reversed.elementAt(index).userName,
                         time: timeago.format(commentList.reversed.elementAt(index).createAt, locale: 'en_short'),
                         content: commentList.reversed.elementAt(index).content,
