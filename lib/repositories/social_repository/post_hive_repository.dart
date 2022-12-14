@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:hive/hive.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:stock_app/repositories/social_repository/models/comment_hive.dart';
 import 'package:stock_app/repositories/social_repository/models/post_hive.dart';
 import 'package:stock_app/repositories/social_repository/models/user_hive.dart';
@@ -27,6 +28,25 @@ class PostHiveRepository {
     await p.save();
 
     return true;
+  }
+
+  Future<void> createPost(String name, String content, XFile? image, String symbol) async{
+    Box<UserHive> userBox = Hive.box<UserHive>('user');
+    Box<CommentHive> commentBox = Hive.box<CommentHive>('comment');
+    Uint8List? i;
+    if (image != null) {
+      i = await image.readAsBytes();
+    }
+    PostHive temp = PostHive(
+      id: name,
+      content: content,
+      image: i,
+      symbol: symbol,
+      createAt: DateTime.now(),
+      like: HiveList(userBox),
+      comments: HiveList(commentBox),
+    );
+    await postBox.add(temp);
   }
 
   Future<bool> deleteFavorite(dynamic userKey, dynamic postKey) async {

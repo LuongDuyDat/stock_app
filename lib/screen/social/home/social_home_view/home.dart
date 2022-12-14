@@ -154,7 +154,7 @@ class _HomeBlogViewState extends State<HomeBlogView> {
                                   name: state.posts.elementAt(index).id,
                                   time: timeago.format(state.posts.elementAt(index).createAt, locale: 'en_short'),
                                   description: state.posts.elementAt(index).content,
-                                  image: state.posts.elementAt(index).image!,
+                                  image: state.posts.elementAt(index).image,
                                   like: state.posts.elementAt(index).like.length,
                                   comment: state.posts.elementAt(index).comments.length,
                                 ),
@@ -184,7 +184,7 @@ class _HomeBlogViewState extends State<HomeBlogView> {
                               name: state.posts.elementAt(index).id,
                               time: timeago.format(state.posts.elementAt(index).createAt, locale: 'en_short'),
                               description: state.posts.elementAt(index).content,
-                              image: state.posts.elementAt(index).image!,
+                              image: state.posts.elementAt(index).image,
                               like: state.posts.elementAt(index).like.length,
                               comment: state.posts.elementAt(index).comments.length,
                             ),
@@ -218,7 +218,7 @@ class _HomeBlogViewState extends State<HomeBlogView> {
                                   name: state.searchPosts.elementAt(index).id,
                                   time: timeago.format(state.searchPosts.elementAt(index).createAt, locale: 'en_short'),
                                   description: state.searchPosts.elementAt(index).content,
-                                  image: state.searchPosts.elementAt(index).image!,
+                                  image: state.searchPosts.elementAt(index).image,
                                   like: state.searchPosts.elementAt(index).like.length,
                                   comment: state.searchPosts.elementAt(index).comments.length,
                                 ),
@@ -248,7 +248,7 @@ class _HomeBlogViewState extends State<HomeBlogView> {
                               name: state.searchPosts.elementAt(index).id,
                               time: timeago.format(state.searchPosts.elementAt(index).createAt, locale: 'en_short'),
                               description: state.searchPosts.elementAt(index).content,
-                              image: state.searchPosts.elementAt(index).image!,
+                              image: state.searchPosts.elementAt(index).image,
                               like: state.searchPosts.elementAt(index).like.length,
                               comment: state.searchPosts.elementAt(index).comments.length,
                             ),
@@ -265,41 +265,6 @@ class _HomeBlogViewState extends State<HomeBlogView> {
                 }
               }
             ),
-            // GestureDetector(
-            //   onTap: () {
-            //   },
-            //   child: PostItem(
-            //     name: 'Fall Angel',
-            //     time: "1d ago",
-            //     description: "Mô tả sơ bộ về bài viết : đây là một bài viết dự đoán chứng khoán theo mô hình ML sử dụng mạng LSTM đây là một bài viết dự đoán chứng khoán theo mô hình ML sử dụng mạng LSTM đây là một bài viết dự đoán chứng khoán theo mô hình ML sử dụng mạng LSTM đây là một bài viết dự đoán chứng khoán theo mô hình ML sử dụng mạng LSTM đây là một bài viết dự đoán chứng khoán theo mô hình ML sử dụng mạng LSTM ",
-            //     image: "https://i.pinimg.com/236x/72/56/64/72566455ccfe235e8279a89ad7fb8b01.jpg",
-            //     like: 1000,
-            //     comment: 3,
-            //   ),
-            // ),
-            // Container(height: 0.012 * screenHeight, color: Colors.grey.shade300,),
-            // GestureDetector(
-            //   onTap: () {
-            //     Navigator.push(
-            //         context,
-            //         MaterialPageRoute(builder: (context) {
-            //           return UploadPostPage(symbol: widget.symbol);
-            //         })
-            //     );
-            //   },
-            //   child: PostItem(
-            //     name: 'Fall Angel',
-            //     time: "1d ago",
-            //     description: "Mô tả sơ bộ về bài viết : đây là một bài viết dự đoán chứng khoán theo mô hình ML sử dụng mạng LSTM đây là một bài viết dự đoán chứng khoán theo mô hình ML sử dụng mạng LSTM đây là một bài viết dự đoán chứng khoán theo mô hình ML sử dụng mạng LSTM đây là một bài viết dự đoán chứng khoán theo mô hình ML sử dụng mạng LSTM đây là một bài viết dự đoán chứng khoán theo mô hình ML sử dụng mạng LSTM ",
-            //     image: "https://i.pinimg.com/236x/72/56/64/72566455ccfe235e8279a89ad7fb8b01.jpg",
-            //     like: 1000,
-            //     comment: 3,
-            //   ),
-            // ),
-            // Comment(
-            //   name: 'Luong Dat',
-            //   time: '5m',
-            //   content: 'Chao cau! Toi La Dat',),
           ]
       ),
     );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stock_app/screen/social/home/social_home_view/home.dart';
 import 'package:stock_app/screen/social/home/social_home_view/new.dart';
-import 'package:stock_app/screen/social/upload_post.dart';
+import 'package:stock_app/screen/social/upload_post/view/upload_post.dart';
 import 'package:stock_app/util/constants/color_constants.dart';
 import 'package:stock_app/util/navigate.dart';
 import 'package:stock_app/util/string.dart';

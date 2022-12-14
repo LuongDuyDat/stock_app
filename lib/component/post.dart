@@ -15,7 +15,7 @@ class PostItem extends StatefulWidget {
     required this.name,
     required this.time,
     required this.description,
-    required this.image,
+    this.image,
     required this.like,
     required this.comment,
   }) : super(key: key);
@@ -24,7 +24,7 @@ class PostItem extends StatefulWidget {
   final String name;
   final String time;
   final String description;
-  final Uint8List image;
+  final Uint8List? image;
   final int like;
   final int comment;
 
@@ -94,6 +94,7 @@ class _PostItemState extends State<PostItem> {
             textAlign: TextAlign.start,
           ),
           // image
+          widget.image != null ?
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -101,10 +102,10 @@ class _PostItemState extends State<PostItem> {
                 height: MediaQuery.of(context).size.height*0.25,
                 margin: EdgeInsets.only(top: 10, bottom: 10),
                 decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade50, width: 1.5)),
-                child: Image.memory(widget.image, fit: BoxFit.cover,),
+                child: Image.memory(widget.image!, fit: BoxFit.cover,),
               ),
             ],
-          ),
+          ) : const Center(),
           SizedBox(height: 10,), // space
           // likes and comment
           Container(

@@ -33,3 +33,7 @@ String groupString = lang == 'en' ? 'Group' : "";
 String homeString = lang == 'en' ? "Home" : "";
 String newsString = lang == 'en' ? "News" : "";
 String writeComment = lang == 'en' ? "Write a comment" : "";
+String createPostString = lang == 'en' ? 'Create Your New Post' : "";
+String postString = lang == 'en' ? 'POST' : "";
+String uploadImage = lang == 'en' ? 'Upload your image' : '';
+String enterContent = lang == 'en' ? 'Enter your content' : '';
