@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:stock_app/screen/social/home.dart';
-import 'package:stock_app/screen/social/upload_post.dart';
 import 'package:stock_app/screen/social/profile.dart';
 import 'package:stock_app/screen/social/search.dart';
+import 'package:stock_app/screen/social/upload_post.dart';
 import 'package:stock_app/util/constants/color_constants.dart';
 import 'package:stock_app/util/constants/dismension_constant.dart';
+import 'package:stock_app/util/navigate.dart';
+import 'package:stock_app/util/string.dart';
 
 import '../../util/globals.dart';
 
 class BlogPage extends StatefulWidget {
-  const BlogPage({super.key});
+  const BlogPage({Key? key, required this.symbol}) : super(key: key);
+
+  final String symbol;
 
   @override
   State<BlogPage> createState() => _BlogPageState();
@@ -19,51 +23,48 @@ class BlogPage extends StatefulWidget {
 
 class _BlogPageState extends State<BlogPage> {
 
-  int _currentIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: IndexedStack(
-        index: _currentIndex,
-        children: [
-          HomeBlogPage(),
-          SearchPage(),
-          ProfilePage(),
-        ],
-      ),
-      bottomNavigationBar: SalomonBottomBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-
-        selectedItemColor: ColorPalette.primaryColor,
-        unselectedItemColor: ColorPalette.primaryColor.withOpacity(0.2),
-        margin: EdgeInsets.symmetric(horizontal: kMediumPadding, vertical: kDefaultPadding),
-        items: [
-          // home
-          SalomonBottomBarItem(
-            icon: Icon(FontAwesomeIcons.house, size: kDefaultIconSize,), 
-            title: Text("Home"),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(groupString + '' + widget.symbol, style: TextStyle(color: ColorPalette.text1Color),),
+          backgroundColor: Colors.white,
+          leading: IconButton(
+             onPressed: () {
+               Navigate.popPage(context);
+             },
+            icon: Icon(Icons.arrow_back, color: ColorPalette.text1Color,),
           ),
-          // search
-          SalomonBottomBarItem(
-            icon: Icon(FontAwesomeIcons.magnifyingGlass, size: kDefaultIconSize,), 
-            title: Text("Search"),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigate.pushPage(context, UploadPostPage(symbol: widget.symbol,));
+              },
+              icon: Icon(FontAwesomeIcons.penToSquare, color: ColorPalette.text1Color,),
+            ),
+          ],
+          bottom: TabBar(
+            tabs: [
+              Tab(text: homeString,),
+              Tab(text: newsString,),
+            ],
+            labelColor: Color.fromRGBO(108, 217, 134, 1.0),
+            unselectedLabelColor: ColorPalette.text1Color,
+            indicatorColor: Color.fromRGBO(108, 217, 134, 1.0),
+            labelStyle: TextStyle(fontWeight: FontWeight.bold,),
           ),
-          // profile
-          SalomonBottomBarItem(
-            icon: Icon(FontAwesomeIcons.solidUser, size: kDefaultIconSize,), 
-            title: Text("Profile"),
-          ),
-        ]
         ),
+        body: TabBarView(
+          children: [
+            HomeBlogPage(symbol: widget.symbol),
+            Center(),
+          ],
+        ),
+      ),
     );
   }
 }

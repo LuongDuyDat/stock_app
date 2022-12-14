@@ -29,3 +29,6 @@ String joinGroupString = lang == 'en' ? 'Join Group' : "";
 String addToListString = lang == 'en' ? 'Add to list' : "";
 String deleteFromListString = lang == 'en' ? 'Delete from list' : "";
 String predictString = lang == 'en' ? 'Predict' : "";
+String groupString = lang == 'en' ? 'Group' : "";
+String homeString = lang == 'en' ? "Home" : "";
+String newsString = lang == 'en' ? "News" : "";

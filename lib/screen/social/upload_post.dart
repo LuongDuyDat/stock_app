@@ -16,14 +16,16 @@ import '../../util/constants/dismension_constant.dart';
 
 
 
-class PostPage extends StatefulWidget {
-  const PostPage({super.key});
+class UploadPostPage extends StatefulWidget {
+  const UploadPostPage({Key? key, required this.symbol}) : super(key: key);
+
+  final String symbol;
 
   @override
-  State<PostPage> createState() => _PostPageState();
+  State<UploadPostPage> createState() => _UploadPostPageState();
 }
 
-class _PostPageState extends State<PostPage> {
+class _UploadPostPageState extends State<UploadPostPage> {
 
 
   File? _image;

@@ -94,7 +94,7 @@ class StockPageView extends StatelessWidget {
                       }).toList(),
                       onChanged: (dynamic a) {
                         if (a == joinGroupString) {
-                          Navigate.pushPage(context, BlogPage());
+                          Navigate.pushPage(context, BlogPage(symbol: symbol,));
                         }
                         if (a == addToListString) {
                           context.read<StockBloc>().add(StockChangeFavorite(symbol: symbol, shortName: shortName, type: 0));

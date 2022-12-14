@@ -6,6 +6,7 @@ import 'package:stock_app/repositories/social_repository/models/favorite_symbol.
 import 'package:stock_app/repositories/social_repository/models/post_hive.dart';
 import 'package:stock_app/repositories/social_repository/models/user_hive.dart';
 import 'package:stock_app/screen/login/view/login.dart';
+import 'package:stock_app/screen/social/blog.dart';
 
 import 'bloc_observer.dart';
 
@@ -61,7 +62,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const LoginPage(),
+      home: const BlogPage(symbol: 'AAPL'),
     );
   }
 }
