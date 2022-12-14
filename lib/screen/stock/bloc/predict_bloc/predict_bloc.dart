@@ -39,18 +39,23 @@ class PredictBloc extends Bloc<PredictEvent, PredictState> {
       ));
       return;
     }
-    List<double> result = await _symbolRepository.getSymbolPredict(
-        event.symbol,
-        temp1[6],
-        temp1[5],
-        temp1[4],
-        temp1[3],
-        temp1[2],
-        temp1[1],
-        temp1[0]
-    );
-    print("Bloc");
-    print(result);
+    List<double> result = [];
+    try {
+      result = await _symbolRepository.getSymbolPredict(
+          event.symbol,
+          temp1[6],
+          temp1[5],
+          temp1[4],
+          temp1[3],
+          temp1[2],
+          temp1[1],
+          temp1[0]
+      );
+      print("Bloc");
+      print(result);
+    } on Exception {
+      result = [];
+    };
 
     if (result.length < 7) {
       emit(state.copyWith(

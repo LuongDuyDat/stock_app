@@ -151,7 +151,7 @@ class PredictPageView extends StatelessWidget {
                               );
                             case PredictStatus.failure:
                               return const Center(
-                                child: Text("Our model can not predict this Stock", style: TextStyle(color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold,),),
+                                child: Text("Our model can not \n predict this Stock", style: TextStyle(color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold,),),
                               );
                           }
                         },
