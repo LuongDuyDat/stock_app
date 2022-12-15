@@ -99,10 +99,10 @@ class _PostItemState extends State<PostItem> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
-                height: MediaQuery.of(context).size.height*0.25,
+                height: MediaQuery.of(context).size.height * 0.25,
                 margin: EdgeInsets.only(top: 10, bottom: 10),
                 decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade50, width: 1.5)),
-                child: Image.memory(widget.image!, fit: BoxFit.cover,),
+                child: Image.memory(widget.image!, fit: BoxFit.cover, height: screenHeight * 0.22,),
               ),
             ],
           ) : const Center(),

@@ -90,11 +90,11 @@ class _PostBlogPageState extends State<PostBlogPage> {
             height: screenHeight * 0.78,
             child: SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 10,),// space
                   // Description
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 0.03 * screenWidth),
+                    padding: EdgeInsets.symmetric(horizontal: 0.03 * screenWidth,vertical: screenHeight * 0.01),
                     child: Text(
                       post.content,
                       overflow: TextOverflow.ellipsis,
@@ -103,18 +103,8 @@ class _PostBlogPageState extends State<PostBlogPage> {
                       style: TextStyle(fontSize: 16),
                     ),
                   ),
+                  Image.memory(post.image!, fit: BoxFit.contain,),
                   // image
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height*0.25,
-                        margin: EdgeInsets.only(top: 10, bottom: 10),
-                        decoration: BoxDecoration(border: Border.all(color: Colors.grey.shade50, width: 1.5)),
-                        child: Image.memory(post.image!, fit: BoxFit.cover,),
-                      ),
-                    ],
-                  ),
                   Padding(
                     padding: EdgeInsets.only(left: 0.01 * screenWidth),
                     child: Row(

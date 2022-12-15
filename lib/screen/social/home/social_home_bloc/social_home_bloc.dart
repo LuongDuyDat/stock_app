@@ -79,6 +79,10 @@ class SocialHomeBloc extends Bloc<SocialHomeEvent, SocialHomeState> {
       SocialHomeGetMorePostEvent event,
       Emitter<SocialHomeState> emit,
       ) async{
+    if (state.hasMorePost == false) {
+      return;
+    }
+
     emit(state.copyWith(
       postStatus: () => SocialHomeStatus.loading,
     ));
