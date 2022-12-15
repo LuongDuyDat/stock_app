@@ -11,6 +11,8 @@ import 'package:stock_app/util/globals.dart';
 import 'package:stock_app/util/navigate.dart';
 import 'package:stock_app/util/string.dart';
 
+import '../../../util/constants/color_constants.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -66,6 +68,7 @@ class _HomePageViewState extends State<HomePageView> {
         toolbarHeight: screenHeight * 0.08,
         backgroundColor: Colors.white,
         centerTitle: false,
+        leadingWidth: 0,
         title: Row(
           children: [
             SizedBox(width: 0.01 * screenWidth,),
@@ -123,7 +126,7 @@ class _HomePageViewState extends State<HomePageView> {
                 child: TextField(
                   style: const TextStyle(
                     fontSize: 20,
-                    color: Colors.blue,
+                    color: ColorPalette.text1Color,
                   ),
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.search, color: Colors.black, size: 20,),
@@ -138,7 +141,7 @@ class _HomePageViewState extends State<HomePageView> {
                     ),
                   ),
                   autofocus: false,
-                  cursorColor: Colors.blue,
+                  cursorColor: Color.fromRGBO(108, 217, 134, 1.0),
                   onChanged: (text) {
                     context.read<HomeBloc>().add(HomeSearchSymbol(searchContent: text));
                   },

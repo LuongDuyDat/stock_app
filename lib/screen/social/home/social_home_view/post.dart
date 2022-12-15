@@ -189,7 +189,7 @@ class _PostBlogPageState extends State<PostBlogPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ProfilePicture(
-                  name: post.id,
+                  name: account.name,
                   radius: 18,
                   fontsize: 18,
                   //count: 3,
@@ -206,7 +206,7 @@ class _PostBlogPageState extends State<PostBlogPage> {
                     controller: controller,
                     style: const TextStyle(
                       fontSize: 16,
-                      color: Color.fromRGBO(108, 217, 134, 1.0),
+                      color: ColorPalette.text1Color,
                     ),
                     onChanged: (text) {
                       setState(() {
