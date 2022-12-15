@@ -35,8 +35,31 @@ class _PostBlogPageState extends State<PostBlogPage> {
   late String content;
   late TextEditingController controller;
 
+  late double width;
+  late double height;
+  final _focusNode = FocusNode();
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
   @override
   void initState() {
+    width = screenWidth;
+    height = screenHeight * 0.78;
+    _focusNode.addListener(() {
+      if (_focusNode.hasFocus) {
+        setState(() {
+          height = screenHeight * 0.42;
+        });
+      } else {
+        setState(() {
+          height = screenHeight * 0.78;
+        });
+      }
+    });
     post = widget.post;
     commentList = post.comments;
     Box<PostHive> p = Hive.box<PostHive>('post');
@@ -87,7 +110,7 @@ class _PostBlogPageState extends State<PostBlogPage> {
       body: Column(
         children: [
           Container(
-            height: screenHeight * 0.78,
+            height: height,
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -204,6 +227,7 @@ class _PostBlogPageState extends State<PostBlogPage> {
                     ),
                     autofocus: false,
                     cursorColor: Color.fromRGBO(108, 217, 134, 1.0),
+                    focusNode: _focusNode,
                   ),
                 ),
                 IconButton(
